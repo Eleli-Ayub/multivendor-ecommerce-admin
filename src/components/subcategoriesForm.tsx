@@ -62,7 +62,7 @@ const SubcategoryForm: React.FC = () => {
 
         console.log(formData);
 
-        // resetForm();
+        resetForm();
     };
 
     return (
