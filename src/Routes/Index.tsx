@@ -13,13 +13,13 @@ import AdDetail from '../pages/AdDetail';
 import Register from '../pages/Register';
 
 import LoginPage from '../pages/Loginpage';
+
 import { useEffect, useState } from 'react';
-import { Login } from '@mui/icons-material';
 
 const Index = () => {
     const [loggedin, setLoggedin] = useState(false);
     useEffect(() => {
-        const auth = localStorage.getItem('userToken');
+        const auth = localStorage.getItem('loggedIn');
         if (auth == '' || auth == null || auth == undefined) {
             setLoggedin(false);
         } else {
@@ -39,15 +39,18 @@ const Index = () => {
             />
             <div className="">
                 <Routes>
-                    <Route path="/" element={loggedin ? <Ads /> : <Login />} />
-                    <Route path="/users" element={loggedin ? <Users /> : <Login />} />
-                    <Route path="/categories" element={loggedin ? <Categories /> : <Login />} />
-                    <Route path="/new-category" element={loggedin ? <NewCategory /> : <Login />} />
+                    <Route path="/" element={<Ads />} />
+                    <Route path="/users" element={loggedin ? <Users /> : <LoginPage />} />
+                    <Route path="/categories" element={loggedin ? <Categories /> : <LoginPage />} />
+                    <Route
+                        path="/new-category"
+                        element={loggedin ? <NewCategory /> : <LoginPage />}
+                    />
                     <Route
                         path="/new-subcategory"
-                        element={loggedin ? <NewSubcategory /> : <Login />}
+                        element={loggedin ? <NewSubcategory /> : <LoginPage />}
                     />
-                    <Route path="/details/:id" element={loggedin ? <AdDetail /> : <Login />} />
+                    <Route path="/details/:id" element={loggedin ? <AdDetail /> : <LoginPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<Register />} />

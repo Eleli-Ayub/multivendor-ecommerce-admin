@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '../assets/logo.jpeg';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
@@ -11,11 +11,21 @@ const LoginForm: React.FC = ({}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
     const [showPassword, setShowPassword] = useState(false);
-    const isLoading = useSelector((state: any) => state.auth.isLoading);
+    // const isLoading = useSelector((state: any) => state.auth.isLoading);
+    const { isLoading, isLoggedIn } = useSelector((state: any) => ({ ...state.auth }));
+    const token = useSelector((state: any) => state.auth.userToken);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
+
+    const loggedIn = localStorage.getItem('loggedIn');
+
+    useEffect(() => {
+        if (loggedIn === 'true') {
+            navigate('/');
+        }
+    }, [loggedIn]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -24,20 +34,17 @@ const LoginForm: React.FC = ({}) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         dispatch(LoggingUser(formData));
-        navigate('/');
-
         // clear form data after submission
 
-        setFormData({
-            email: '',
-            password: '',
-        });
+        // setFormData({
+        //     email: '',
+        //     password: '',
+        // });
     };
 
     if (isLoading) {
-        // return <Loader />;
+        return <Loader />;
     }
 
     return (
