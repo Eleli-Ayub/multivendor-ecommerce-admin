@@ -1,4 +1,5 @@
 type ProductData = {
+  isapproved: boolean;
   productname: string;
   productdescription: string;
   productprice: string;
@@ -10,6 +11,20 @@ type ProductData = {
   brand: string;
   productimages: File[] | [] | any[];
   producttid: string;
+  isactive: boolean;
+  isdeleted: boolean
+  issuspended: boolean
+  lastupdated:string
+  activeuntil:string
+  latestinteractions:string
+  UpdatedAt:string
+  DeletedAt:string
+  CreatedAt:string
+  dateadded:string
+  totalbookmarks:number
+  totalcomments:number
+  totalinteractions:number
+  totallikes:number
 };
 
 
