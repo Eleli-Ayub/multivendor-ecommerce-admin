@@ -85,7 +85,7 @@ const RegisterForm: React.FC = ({}) => {
     };
 
     if (isLoading) {
-        // return <Loader />;
+        return <Loader />;
     }
 
     return (

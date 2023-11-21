@@ -13,7 +13,7 @@ const App = () => {
                 <Routes />
                 {/* <OtherRoutes /> */}
             </BrowserRouter>
-            {/* {loading && <Loader />} */}
+            {loading && <Loader />}
         </div>
     );
 };

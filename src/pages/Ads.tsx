@@ -1,12 +1,12 @@
 // import React from "react";
 import Sidebar from '../components/constants/Sidebar';
 import Ads from '../components/Ads';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AdsPage = () => {
-    const { isLoggedIn } = useSelector((state: any) => ({ ...state.auth }));
+    // const { isLoggedIn } = useSelector((state: any) => ({ ...state.auth }));
     const navigate = useNavigate();
 
     const loggedIn = localStorage.getItem('loggedIn');
