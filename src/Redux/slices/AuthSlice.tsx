@@ -21,7 +21,7 @@ interface AuthState {
 const initialState: AuthState = {
     user: null,
     isLoading: false,
-    userToken: localStorage.getItem('userToken') || null,
+    userToken: null,
     theSeller: null,
     isLoggedIn: false,
 };
@@ -127,7 +127,7 @@ const authSlice = createSlice({
                 state.isLoggedIn = payload?.data.Success;
                 state.userToken = payload.data.Data;
                 localStorage.setItem('loggedIn', 'true');
-                localStorage.setItem('token', JSON.stringify(payload.data.Data));
+                localStorage.setItem('userToken', payload.data.Data);
                 toast.success(`welcome, ${payload?.data.Message}`);
             }
         });
