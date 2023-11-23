@@ -5,6 +5,7 @@ import {
     LogginOfUser,
     RegistrationOfUser,
     UpdateOfUser,
+    getUsers,
     loggedInUser,
 } from '../Apis/users.actions';
 import { toast } from 'react-toastify';
@@ -16,10 +17,12 @@ interface AuthState {
     userToken: string | null;
     theSeller: userProps | null;
     isLoggedIn: boolean;
+    users: userProps | null;
 }
 
 const initialState: AuthState = {
     user: null,
+    users: null,
     isLoading: false,
     userToken: null,
     theSeller: null,
@@ -79,6 +82,14 @@ export const UpdattingOfUser = createAsyncThunk(
         return response.data.Data;
     }
 );
+
+export const getAllUsers = createAsyncThunk('auth/getaallusers', async () => {
+    const response = await getUsers();
+    console.log('====================================');
+    console.log(response.data.Data);
+    console.log('====================================');
+    return response.data.Data;
+});
 
 const authSlice = createSlice({
     name: 'auth',
@@ -157,6 +168,19 @@ const authSlice = createSlice({
             })
             .addCase(UpdattingOfUser.rejected, (state) => {
                 state.isLoading = false;
+            });
+
+        builder
+            .addCase(getAllUsers.rejected, (state) => {
+                state.isLoading = false;
+            })
+
+            .addCase(getAllUsers.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getAllUsers.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.users = action.payload;
             });
     },
 });
