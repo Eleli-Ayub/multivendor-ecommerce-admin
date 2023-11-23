@@ -85,10 +85,13 @@ const UsersTable = () => {
         {
             title: 'Actions',
             dataIndex: 'action',
-            render: (_text: any, _record: any) => {
+            render: (_text: any, record: any) => {
                 // console.log(record, text);
                 return (
-                    <div className="flex mr-2 gap-3">
+                    <div
+                        className="flex mr-2 gap-3"
+                        onClick={() => navigate(`/users/${record.userid}`)}
+                    >
                         <Visibility className="text-primary-orange" />
                         <Edit className="text-green-500" />
                         <Delete className="text-red-600" />

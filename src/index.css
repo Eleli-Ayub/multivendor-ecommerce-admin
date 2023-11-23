@@ -11,6 +11,17 @@
   /* font-family: "Roboto Slab", serif; */
 }
 
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+}
+
+.my-cover{
+  height: 100vh!important;
+}
+
 .logo {
   height: auto;
   width: auto;
@@ -164,10 +175,10 @@ td {
   text-align: left;
 }
 
-img {
+/* img {
   max-width: 100%;
   max-height: 200px;
-}
+} */
 
 /* main {
   height: 600px;

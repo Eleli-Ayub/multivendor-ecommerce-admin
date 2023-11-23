@@ -15,7 +15,7 @@ interface AuthState {
     user: userProps | null;
     isLoading: boolean;
     userToken: string | null;
-    theSeller: userProps | null;
+    Seller: userProps | null;
     isLoggedIn: boolean;
     users: userProps | null;
 }
@@ -25,7 +25,7 @@ const initialState: AuthState = {
     users: null,
     isLoading: false,
     userToken: null,
-    theSeller: null,
+    Seller: null,
     isLoggedIn: false,
 };
 
@@ -85,9 +85,6 @@ export const UpdattingOfUser = createAsyncThunk(
 
 export const getAllUsers = createAsyncThunk('auth/getaallusers', async () => {
     const response = await getUsers();
-    console.log('====================================');
-    console.log(response.data.Data);
-    console.log('====================================');
     return response.data.Data;
 });
 
@@ -153,7 +150,7 @@ const authSlice = createSlice({
             .addCase(GettingUserById.fulfilled, (state, action) => {
                 state.isLoading = false;
                 // Update state.user with the user data received in the action payload
-                state.theSeller = action.payload; // Adjust this to match your response structure
+                state.Seller = action.payload; // Adjust this to match your response structure
             })
             .addCase(GettingUserById.rejected, (state) => {
                 state.isLoading = false;

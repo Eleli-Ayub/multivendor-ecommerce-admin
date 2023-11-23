@@ -15,6 +15,7 @@ import Register from '../pages/Register';
 import LoginPage from '../pages/Loginpage';
 
 import { useEffect, useState } from 'react';
+import SingleUser from '../pages/SingleUser';
 
 const Index = () => {
     const [loggedin, setLoggedin] = useState(false);
@@ -37,7 +38,7 @@ const Index = () => {
                     throw new Error('Function not implemented.');
                 }}
             />
-            <div className="">
+            <div className="id" id="root">
                 <Routes>
                     <Route path="/" element={<Ads />} />
                     <Route path="/users" element={loggedin ? <Users /> : <LoginPage />} />
@@ -51,12 +52,14 @@ const Index = () => {
                         element={loggedin ? <NewSubcategory /> : <LoginPage />}
                     />
                     <Route path="/details/:id" element={loggedin ? <AdDetail /> : <LoginPage />} />
+                    <Route path="/users/:id" element={loggedin ? <SingleUser /> : <LoginPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<Register />} />
                 </Routes>
             </div>
             <ToastContainer position="top-center" />
+
             <footer>
                 <Footer />
             </footer>
