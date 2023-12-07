@@ -45,7 +45,7 @@ const ProductInfo = () => {
     }, [id]);
 
     return (
-        <section className=" bg-gray-light">
+        <section className=" bg-gray-light h-auto">
             <div className="flex flex-col md:flex-row gap-5 p-5 mb-10 h-auto">
                 <div className="md:flex-1">
                     <div>
@@ -68,8 +68,8 @@ const ProductInfo = () => {
                             <div className="flex flex-col gap-4">
                                 <div style={{ height: '600px' }} className="">
                                     <img
-                                        src={`data:image/jpeg;base64, ${productImages[selectedImageIndex]}`}
-                                        className=" rounded-xl w-full max-h-full"
+                                        src={` ${productImages[selectedImageIndex]}`}
+                                        className=" rounded-xl w-full max-h-full  object-cover object-center"
                                         alt=""
                                         style={{ height: '100%' }}
                                     />
@@ -78,7 +78,7 @@ const ProductInfo = () => {
                                     {productImages?.map((image: any, index: number) => (
                                         <img
                                             key={index}
-                                            src={`data:image/jpeg;base64, ${image}`}
+                                            src={`${image}`}
                                             className={
                                                 'h-16 w-16 object-cover rounded-md bg-gray-100 cursor-pointer' +
                                                 (index === selectedImageIndex
@@ -93,14 +93,23 @@ const ProductInfo = () => {
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div className="flex-1">
                     <div className="flex flex-col">
-                        <div className="border border-gray-300 p-2 m-2 rounded">
+                        <div>
+                            {' '}
+                            <p className="text-2xl font-bold text-secondary-orange">
+                                {' '}
+                                Price: Ksh :{product?.productprice}
+                            </p>
+                        </div>
+                        <div className=" border-gray-300 p-2 m-2 rounded">
                             <h1> Description:</h1>
                             <p className="text-gray-600">{product?.productdescription}</p>
                         </div>
                     </div>
-                    <div className="border border-gray-300 p-2 m-2 rounded">
+                    <div className=" border-gray-300 p-2 m-2 rounded">
                         <h1> Location:</h1>
                         <p className="text-gray-600">Nairobi Area</p>
                     </div>
@@ -123,20 +132,9 @@ const ProductInfo = () => {
                 </div>
 
                 <div className="md-flex-1 p-4 ">
-                    <div className="w-full bg-gray-white h-auto shadow-custom text-center flex flex-col rounded p-2">
-                        <h2>Price:</h2>
-                        <p className="text-2xl font-bold text-secondary-orange">
-                            {' '}
-                            Ksh :{product?.productprice}
-                        </p>
-                        <button className="bg-black-200 text-white px-10 py-2 mt-4 rounded hover:text-black-200 hover:bg-white transition-colors delay-300">
-                            Fixed Price
-                        </button>
-                    </div>
-
                     <div className="mt-2 rounded" style={{ height: 'auto' }}>
                         <div className="">
-                            <div className="bg-neutral-200 p-6 rounded shadow-custom">
+                            <div className="bg-neutral-200 p-6 rounded shadow-custom w-full">
                                 <h1 className="center">Posted by:</h1>
                                 <div className="flex gap-4">
                                     <div>
@@ -174,14 +172,14 @@ const ProductInfo = () => {
             </div>
 
             <div className="flex flex-row gap-4 w-screen p-10 flex-wrap">
-                <div className="image-container">
+                {/* <div className="image-container">
                     <h2>Main image</h2>
                     <img
-                        src={`data:image/jpeg;base64, ${product?.mainimage}`}
+                        src={`${product?.mainimage}`}
                         alt="Main Image"
                         className="h-full w-full object-cover rounded"
                     />
-                </div>
+                </div> */}
                 <div className="table-container shadow-card" style={{ minWidth: '300px' }}>
                     <h2>Product Data</h2>
                     <table>

@@ -99,13 +99,8 @@ export const RevokeUser = async (id: string): Promise<any> => {
 };
 
 export const getUsers = async () => {
-    try {
-        const response = await axiosService.get('/admin/fetchusers');
-        return response;
-    } catch (error: any) {
-        console.log(error);
-        throw new Error(error.message);
-    }
+    const response = await axiosService.get(`/user/auth/fetchsellers`);
+    return response;
 };
 
 export const getUser = async (id: any) => {

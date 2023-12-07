@@ -2,23 +2,21 @@ import { Table } from 'antd';
 import { Delete, Edit, Visibility } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { getAllUsers } from '../Redux/slices/AuthSlice';
 import { AppDispatch } from '../Redux/store';
 import Loader from './constants/loader';
 import { ApproveUser, RevokeUser } from '../Redux/Apis/users.actions';
 import { setLoader } from '../Redux/slices/Loaderslice';
 
-const UsersTable = () => {
+type UserProps = {
+    users: any;
+};
+
+const UsersTable: React.FC<UserProps> = ({ users }) => {
+    const { isLoading } = useSelector((state: any) => state.auth);
     const navigate = useNavigate();
 
     const dispatch = useDispatch<AppDispatch>();
-    const { users, isLoading } = useSelector((state: any) => state.auth);
-    // console.log(users);
-
-    useEffect(() => {
-        dispatch(getAllUsers());
-    }, []);
 
     const approve = async (id: any) => {
         dispatch(setLoader(true));

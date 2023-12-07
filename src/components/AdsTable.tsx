@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { Visibility } from '@mui/icons-material';
 import {
@@ -6,29 +5,26 @@ import {
     DeactivateProduct,
     DeleteProduct,
     RestoreProduct,
-    getProducts,
 } from '../Redux/Apis/ads.actions';
 import { ApproveProduct } from '../Redux/Apis/ads.actions';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLoader } from '../Redux/slices/Loaderslice';
 import { useNavigate } from 'react-router-dom';
+import { AppDispatch } from '../Redux/store';
+import { FetchProductsAsync } from '../Redux/slices/AdsSlice';
+import Loader from './constants/loader';
 
-const AdsTable = () => {
-    const [products, setProducts] = useState([]);
+type AdFormProps = {
+    Ads: any;
+};
+
+const AdsTable: React.FC<AdFormProps> = ({ Ads }) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const fetchProducts = async () => {
-        try {
-            dispatch(setLoader(true));
-            const response = await getProducts();
-            dispatch(setLoader(false));
-            setProducts(response.data.Data);
-            console.log(products);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const dispatch = useDispatch<AppDispatch>();
+    const isLoading = useSelector((state: any) => state.AllAds.isLoading);
+    const products = Ads;
+    console.log(products);
 
     const approveProduct = async (id: any) => {
         try {
@@ -37,7 +33,7 @@ const AdsTable = () => {
             console.log(response);
             toast.success('product approved successfully...');
             dispatch(setLoader(false));
-            fetchProducts();
+            dispatch(FetchProductsAsync());
         } catch (error) {
             toast.error('failed to approve, try again later');
         }
@@ -50,7 +46,7 @@ const AdsTable = () => {
             console.log(response);
             toast.success('product deactivated successfully...');
             dispatch(setLoader(false));
-            fetchProducts();
+            dispatch(FetchProductsAsync());
         } catch (error) {
             toast.error('failed to deactivate, try again later');
         }
@@ -62,7 +58,7 @@ const AdsTable = () => {
             console.log(response);
             toast.success('product activated successfully...');
             dispatch(setLoader(false));
-            fetchProducts();
+            dispatch(FetchProductsAsync());
         } catch (error) {
             toast.error('failed to activate, try again later');
         }
@@ -75,7 +71,7 @@ const AdsTable = () => {
             console.log(response);
             toast.success('product deleted successfully...');
             dispatch(setLoader(false));
-            fetchProducts();
+            dispatch(FetchProductsAsync());
         } catch (error) {
             toast.error('failed to delete, try again later');
         }
@@ -88,7 +84,7 @@ const AdsTable = () => {
             console.log(response);
             toast.success('product restored successfully...');
             dispatch(setLoader(false));
-            fetchProducts();
+            dispatch(FetchProductsAsync());
         } catch (error) {
             toast.error('failed to restore, try again later');
         }
@@ -108,15 +104,11 @@ const AdsTable = () => {
     const toggleProductStatus = async (_productId: any, _isActive: any) => {
         try {
             // Update product status here
-            fetchProducts();
+            dispatch(FetchProductsAsync());
         } catch (error) {
             console.log(error);
         }
     };
-
-    useEffect(() => {
-        fetchProducts();
-    }, []);
 
     // const viewProduct = (productId: any) => {
     //     // Implement the action to view the product here
@@ -251,6 +243,7 @@ const AdsTable = () => {
 
     return (
         <div className="mt-4 table-responsive">
+            {isLoading && <Loader />}
             <Table columns={TableData} dataSource={products} className="border rounded-sm" />
         </div>
     );
