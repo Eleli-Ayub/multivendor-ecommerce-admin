@@ -11,10 +11,10 @@ const Ads = () => {
     const isLoading = useSelector((state: any) => state.AllAds.isLoading);
     const ads = Ads;
     const totalAdsCount = ads;
-    const approvedAdsCount = ads.filter((ad: any) => ad.isapproved);
-    const pendingAdsCount = ads.filter((ad: any) => !ad.isapproved);
-    const declinedAdsCount = ads.filter((ad: any) => !ad.isActive);
-    const closedAdsCount = ads.filter((ad: any) => !ad.isactive);
+    const approvedAdsCount = ads?.filter((ad: any) => ad.isapproved);
+    const pendingAdsCount = ads?.filter((ad: any) => !ad.isapproved);
+    const declinedAdsCount = ads?.filter((ad: any) => !ad.isActive);
+    const closedAdsCount = ads?.filter((ad: any) => !ad.isactive);
 
     const [filteredAds, setfilteredAds] = useState(Ads);
     const dispatch = useDispatch<AppDispatch>();
@@ -46,7 +46,7 @@ const Ads = () => {
                         <LibraryAdd className="text-white" />
                         <div>
                             <h1 className="text-2xl font-semibold text-white">
-                                {totalAdsCount.length}
+                                {totalAdsCount?.length}
                             </h1>
                             <p className="text-sm">Total Ads</p>
                         </div>
@@ -61,7 +61,7 @@ const Ads = () => {
                     >
                         <CheckOutlined className="text-whites" />
                         <div>
-                            <h1 className="text-2xl font-semibold ">{approvedAdsCount.length}</h1>
+                            <h1 className="text-2xl font-semibold ">{approvedAdsCount?.length}</h1>
                             <p className="text-sm">Approved Ads</p>
                         </div>
                     </div>
@@ -76,7 +76,7 @@ const Ads = () => {
                         <Pending />
                         <div>
                             {' '}
-                            <h1 className="text-2xl font-semibold ">{pendingAdsCount.length}</h1>
+                            <h1 className="text-2xl font-semibold ">{pendingAdsCount?.length}</h1>
                             <p className="text-sm">Pending Ads</p>
                         </div>
                     </div>
@@ -90,7 +90,7 @@ const Ads = () => {
                     >
                         <Cancel />
                         <div>
-                            <h1 className="text-2xl font-semibold ">{declinedAdsCount.length}</h1>
+                            <h1 className="text-2xl font-semibold ">{declinedAdsCount?.length}</h1>
                             <p className="text-sm">Declined Ads</p>
                         </div>
                     </div>
@@ -102,7 +102,7 @@ const Ads = () => {
                             setfilteredAds(closedAdsCount);
                         }}
                     >
-                        <h1 className="text-2xl font-semibold ">{closedAdsCount.length}</h1>
+                        <h1 className="text-2xl font-semibold ">{closedAdsCount?.length}</h1>
                         <p className="text-sm">Closed Ads</p>
                     </div>
                 </div>
