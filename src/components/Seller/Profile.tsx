@@ -8,6 +8,8 @@ import { Avatar } from 'antd';
 import cart from '../../assets/cart2.jpg';
 import Loader from '../constants/loader';
 
+import AdsTable from '../../components/userAdsTable';
+
 const Profile = () => {
     const dispatch = useDispatch<AppDispatch>();
     // const { isLoading } = useSelector((state: any) => state.AllAds);
@@ -16,25 +18,22 @@ const Profile = () => {
     const theSeller = Seller;
     const { id } = useParams();
 
-    function FetchSellerProducts(id: string | undefined): any {
-        throw new Error('Function not implemented.');
-    }
-
-    const image =
-        'https://images.unsplash.com/photo-1603988089669-c041ac2fe196?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGdpcmwlMjBmYWNlfGVufDB8fDB8fHww';
+    // function FetchSellerProducts(id: string | undefined): any {
+    //     throw new Error('Function not implemented.');
+    // }
 
     useEffect(() => {
         dispatch(GettingUserById(id)).then((action) => {
             if (GettingUserById.fulfilled.match(action)) {
                 console.log(theSeller);
-                dispatch(FetchSellerProducts(id));
+                // dispatch(FetchSellerProducts(id));
             }
         });
     }, [dispatch, id]);
 
     console.log(theSeller);
     return (
-        <div className=" min-h-screen">
+        <div className=" min-h-screen px-5">
             <div className="flex flex-col ">
                 <div className="  bg-yellow-300 rounded relative h-[fit-content]">
                     {isLoading && <Loader />}
@@ -119,7 +118,11 @@ const Profile = () => {
                 </div>
 
                 {/* seller's ads */}
-                <div>{/*  table goes here*/}</div>
+                <div>
+                    {/*  table goes here*/}
+
+                    <AdsTable userId={id} />
+                </div>
             </div>
         </div>
     );

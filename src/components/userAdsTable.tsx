@@ -6,6 +6,7 @@ import {
     DeactivateProduct,
     DeleteProduct,
     RestoreProduct,
+    fetchSellersProduct,
     getProducts,
 } from '../Redux/Apis/ads.actions';
 import { ApproveProduct } from '../Redux/Apis/ads.actions';
@@ -14,14 +15,18 @@ import { useDispatch } from 'react-redux';
 import { setLoader } from '../Redux/slices/Loaderslice';
 import { useNavigate } from 'react-router-dom';
 
-const AdsTable = () => {
+type AdFormProps = {
+    userId: any;
+};
+const AdsTable: React.FC<AdFormProps> = ({ userId }) => {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const fetchProducts = async () => {
+
+    const fetchProducts = async (userId: any) => {
         try {
             dispatch(setLoader(true));
-            const response = await getProducts();
+            const response = await fetchSellersProduct(userId);
             dispatch(setLoader(false));
             setProducts(response.data.Data);
             console.log(products);
@@ -37,7 +42,7 @@ const AdsTable = () => {
             console.log(response);
             toast.success('product approved successfully...');
             dispatch(setLoader(false));
-            fetchProducts();
+            fetchProducts(userId);
         } catch (error) {
             toast.error('failed to approve, try again later');
         }
@@ -50,7 +55,7 @@ const AdsTable = () => {
             console.log(response);
             toast.success('product deactivated successfully...');
             dispatch(setLoader(false));
-            fetchProducts();
+            fetchProducts(userId);
         } catch (error) {
             toast.error('failed to deactivate, try again later');
         }
@@ -62,7 +67,7 @@ const AdsTable = () => {
             console.log(response);
             toast.success('product activated successfully...');
             dispatch(setLoader(false));
-            fetchProducts();
+            fetchProducts(userId);
         } catch (error) {
             toast.error('failed to activate, try again later');
         }
@@ -75,7 +80,7 @@ const AdsTable = () => {
             console.log(response);
             toast.success('product deleted successfully...');
             dispatch(setLoader(false));
-            fetchProducts();
+            fetchProducts(userId);
         } catch (error) {
             toast.error('failed to delete, try again later');
         }
@@ -88,7 +93,7 @@ const AdsTable = () => {
             console.log(response);
             toast.success('product restored successfully...');
             dispatch(setLoader(false));
-            fetchProducts();
+            fetchProducts(userId);
         } catch (error) {
             toast.error('failed to restore, try again later');
         }
@@ -108,14 +113,14 @@ const AdsTable = () => {
     const toggleProductStatus = async (_productId: any, _isActive: any) => {
         try {
             // Update product status here
-            fetchProducts();
+            fetchProducts(userId);
         } catch (error) {
             console.log(error);
         }
     };
 
     useEffect(() => {
-        fetchProducts();
+        fetchProducts(userId);
     }, []);
 
     // const viewProduct = (productId: any) => {
