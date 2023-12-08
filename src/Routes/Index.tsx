@@ -16,6 +16,9 @@ import LoginPage from '../pages/Loginpage';
 
 import { useEffect, useState } from 'react';
 import SingleUser from '../pages/SingleUser';
+import Messages from '../pages/messages';
+import Packages from '../pages/packages';
+import Notifications from '../pages/notifications';
 
 const Index = () => {
     const [loggedin, setLoggedin] = useState(false);
@@ -47,6 +50,12 @@ const Index = () => {
                         path="/new-category"
                         element={loggedin ? <NewCategory /> : <LoginPage />}
                     />
+                    <Route path="/messages" element={loggedin ? <Messages /> : <LoginPage />} />
+                    <Route
+                        path="/notifications"
+                        element={loggedin ? <Notifications /> : <LoginPage />}
+                    />
+                    <Route path="/packages" element={loggedin ? <Packages /> : <LoginPage />} />
                     <Route
                         path="/new-subcategory"
                         element={loggedin ? <NewSubcategory /> : <LoginPage />}
