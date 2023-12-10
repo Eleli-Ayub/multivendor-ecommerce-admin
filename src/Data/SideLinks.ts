@@ -27,6 +27,12 @@ export const AdminSideLinks = [
     url: "/categories",
     icon: TbCategory,
   },
+  {
+    name: "Main Ads",
+    url: "/main",
+    icon: TbCategory,
+  },
+
 
   {
     name: "Packages",
