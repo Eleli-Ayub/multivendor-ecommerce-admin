@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Logo from '../assets/logo.jpeg';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
@@ -19,14 +19,6 @@ const LoginForm: React.FC = ({}) => {
         password: '',
     });
 
-    const loggedIn = localStorage.getItem('loggedIn');
-
-    useEffect(() => {
-        if (loggedIn === 'true') {
-            navigate('/');
-        }
-    }, [loggedIn]);
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -34,13 +26,11 @@ const LoginForm: React.FC = ({}) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(LoggingUser(formData));
-        // clear form data after submission
+        await dispatch(LoggingUser(formData));
 
-        // setFormData({
-        //     email: '',
-        //     password: '',
-        // });
+        setTimeout(() => {
+            navigate('/');
+        }, 1000);
     };
 
     if (isLoading) {

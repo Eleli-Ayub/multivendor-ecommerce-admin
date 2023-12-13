@@ -14,23 +14,13 @@ import Register from '../pages/Register';
 
 import LoginPage from '../pages/Loginpage';
 
-import { useEffect, useState } from 'react';
 import SingleUser from '../pages/SingleUser';
 import Messages from '../pages/messages';
 import Packages from '../pages/packages';
 import Notifications from '../pages/notifications';
+import PrivateRoute from '../components/Private';
 
 const Index = () => {
-    const [loggedin, setLoggedin] = useState(false);
-    useEffect(() => {
-        const auth = localStorage.getItem('loggedIn');
-        if (auth == '' || auth == null || auth == undefined) {
-            setLoggedin(false);
-        } else {
-            setLoggedin(true);
-        }
-    }, []);
-
     return (
         <div>
             <Navbar
@@ -43,26 +33,87 @@ const Index = () => {
             />
             <div className="id" id="root">
                 <Routes>
-                    <Route path="/" element={<Ads />} />
-                    <Route path="/users" element={loggedin ? <Users /> : <LoginPage />} />
-                    <Route path="/categories" element={loggedin ? <Categories /> : <LoginPage />} />
+                    <Route
+                        path="/"
+                        element={
+                            <PrivateRoute>
+                                <Ads />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/users"
+                        element={
+                            <PrivateRoute>
+                                <Users />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/categories"
+                        element={
+                            <PrivateRoute>
+                                <Categories />
+                            </PrivateRoute>
+                        }
+                    />
                     <Route
                         path="/new-category"
-                        element={loggedin ? <NewCategory /> : <LoginPage />}
+                        element={
+                            <PrivateRoute>
+                                <NewCategory />
+                            </PrivateRoute>
+                        }
                     />
-                    <Route path="/messages" element={loggedin ? <Messages /> : <LoginPage />} />
+                    <Route
+                        path="/messages"
+                        element={
+                            <PrivateRoute>
+                                <Messages />
+                            </PrivateRoute>
+                        }
+                    />
                     <Route
                         path="/notifications"
-                        element={loggedin ? <Notifications /> : <LoginPage />}
+                        element={
+                            <PrivateRoute>
+                                <Notifications />
+                            </PrivateRoute>
+                        }
                     />
-                    <Route path="/packages" element={loggedin ? <Packages /> : <LoginPage />} />
+                    <Route path="/packages" element={<PrivateRoute>{<Packages />}</PrivateRoute>} />
                     <Route
                         path="/new-subcategory"
-                        element={loggedin ? <NewSubcategory /> : <LoginPage />}
+                        element={
+                            <PrivateRoute>
+                                <NewSubcategory />
+                            </PrivateRoute>
+                        }
                     />
-                    <Route path="/details/:id" element={loggedin ? <AdDetail /> : <LoginPage />} />
-                    <Route path="/users/:id" element={loggedin ? <SingleUser /> : <LoginPage />} />
-                    <Route path="*" element={<NotFoundPage />} />
+                    <Route
+                        path="/details/:id"
+                        element={
+                            <PrivateRoute>
+                                <AdDetail />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/users/:id"
+                        element={
+                            <PrivateRoute>
+                                <SingleUser />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="*"
+                        element={
+                            <PrivateRoute>
+                                <NotFoundPage />
+                            </PrivateRoute>
+                        }
+                    />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<Register />} />
                 </Routes>

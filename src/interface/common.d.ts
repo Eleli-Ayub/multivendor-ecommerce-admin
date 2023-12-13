@@ -36,3 +36,7 @@ export interface userProps {
   phonenumber: string;
   password: string;
 }
+
+export interface adminProps {
+  adminname:string
+}

@@ -6,9 +6,7 @@ import menu from '../../assets/menu.png';
 import logo from '../../assets/logo.png';
 import { IconButton, MenuItem, Typography, FormControl, Select, InputBase } from '@mui/material';
 import { MessageRounded, NotificationsActive } from '@mui/icons-material';
-import { getLoggedInUser } from '../../Redux/slices/AuthSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../Redux/store';
+import { adminProps } from '../../interface/common';
 
 type LoginFormProps = {
     SetShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,13 +18,18 @@ const Navbar: React.FC<LoginFormProps> = () => {
     const [toggle, setToggle] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const navigate = useNavigate();
-    const user = useSelector((state: any) => state.auth.user);
-    const userToken = useSelector((state: any) => state.auth.userToken);
-    const dispatch = useDispatch<AppDispatch>();
+    const [user, setUser] = useState<adminProps | null>(null);
+    // console.log(user);
+
+    const adminDataString = localStorage.getItem('admin');
 
     useEffect(() => {
-        dispatch(getLoggedInUser());
-    }, [userToken]);
+        if (adminDataString !== null) {
+            setUser(JSON.parse(adminDataString));
+        } else {
+            console.error('Admin data not found in localStorage');
+        }
+    }, [user]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -96,6 +99,7 @@ const Navbar: React.FC<LoginFormProps> = () => {
                                             backgroundColor: '#eee',
                                             cursor: 'pointer',
                                         }}
+                                        onClick={() => navigate('/messages')}
                                     >
                                         <MessageRounded />
                                     </IconButton>
@@ -112,6 +116,7 @@ const Navbar: React.FC<LoginFormProps> = () => {
                                             backgroundColor: '#eee',
                                             cursor: 'pointer',
                                         }}
+                                        onClick={() => navigate('/notifications')}
                                     >
                                         <NotificationsActive />
                                     </IconButton>
@@ -120,7 +125,7 @@ const Navbar: React.FC<LoginFormProps> = () => {
 
                             <FormControl>
                                 <Select
-                                    value={'Jane Doe'}
+                                    value={`${user.adminname}`}
                                     sx={{
                                         backgroundColor: '#eee',
                                         width: '150px',
@@ -137,15 +142,18 @@ const Navbar: React.FC<LoginFormProps> = () => {
                                     input={<InputBase />}
                                 >
                                     <MenuItem
-                                        value={'Jane Doe'}
+                                        value={`${user.adminname}`}
                                         onClick={() => {
                                             navigate('/profile/myads');
                                         }}
                                     >
-                                        <Typography>{'Jane Doe'}</Typography>
+                                        <Typography>{`${user.adminname}`}</Typography>
                                     </MenuItem>
                                     <MenuItem
                                         onClick={() => {
+                                            setUser(null);
+                                            localStorage.removeItem('userToken');
+                                            localStorage.removeItem('admin');
                                             navigate('/login');
                                         }}
                                     >

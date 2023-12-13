@@ -135,8 +135,10 @@ const authSlice = createSlice({
                 state.isLoggedIn = payload?.data.Success;
                 state.userToken = payload.data.Data;
                 localStorage.setItem('loggedIn', 'true');
-                localStorage.setItem('userToken', payload.data.Data);
+                localStorage.setItem('userToken', payload.data.Data.token);
                 toast.success(`welcome, ${payload?.data.Message}`);
+                localStorage.setItem('admin', JSON.stringify(payload.data.Data.use_detail));
+                state.user = payload.data.Data.use_detail;
             }
         });
         builder

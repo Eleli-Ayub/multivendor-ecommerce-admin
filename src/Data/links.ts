@@ -1,14 +1,17 @@
 export const Links = [
   {
-    name: "Services",
-    url: "",
+    name: "Ads",
+    url: "/",
+   
   },
   {
-    name: "pricing",
-    url: "/pricing",
+    name: "Users",
+    url: "/users",
+    
   },
   {
-    name: "contact",
-    url: "",
+    name: "Categories",
+    url: "/categories",
+    
   },
 ];
