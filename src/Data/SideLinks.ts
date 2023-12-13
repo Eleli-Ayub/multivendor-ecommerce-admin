@@ -29,7 +29,7 @@ export const AdminSideLinks = [
   },
   {
     name: "Main Ads",
-    url: "/main",
+    url: "/main_ads",
     icon: TbCategory,
   },
 

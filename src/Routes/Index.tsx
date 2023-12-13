@@ -19,6 +19,8 @@ import Messages from '../pages/messages';
 import Packages from '../pages/packages';
 import Notifications from '../pages/notifications';
 import PrivateRoute from '../components/Private';
+import MainAds from '../pages/MainAds';
+import MainAd from '../components/MainAd';
 
 const Index = () => {
     return (
@@ -49,6 +51,16 @@ const Index = () => {
                             </PrivateRoute>
                         }
                     />
+
+                    <Route
+                        path="/main_ads"
+                        element={
+                            <PrivateRoute>
+                                <MainAds />
+                            </PrivateRoute>
+                        }
+                    />
+
                     <Route
                         path="/categories"
                         element={
