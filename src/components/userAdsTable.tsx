@@ -7,7 +7,6 @@ import {
     DeleteProduct,
     RestoreProduct,
     fetchSellersProduct,
-    getProducts,
 } from '../Redux/Apis/ads.actions';
 import { ApproveProduct } from '../Redux/Apis/ads.actions';
 import { toast } from 'react-toastify';

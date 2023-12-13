@@ -20,7 +20,7 @@ import Packages from '../pages/packages';
 import Notifications from '../pages/notifications';
 import PrivateRoute from '../components/Private';
 import MainAds from '../pages/MainAds';
-import MainAd from '../components/MainAd';
+// import MainAd from '../components/MainAd';
 
 const Index = () => {
     return (
