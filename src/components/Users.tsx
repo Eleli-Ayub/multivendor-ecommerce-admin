@@ -25,6 +25,9 @@ const Users = () => {
     useEffect(() => {
         dispatch(getAllUsers());
     }, []);
+    useEffect(() => {
+        setfilterdUsers(allUsers);
+    }, [allUsers]);
 
     return (
         <div className="flex flex-col mx-auto">

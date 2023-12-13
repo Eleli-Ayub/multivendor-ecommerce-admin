@@ -23,18 +23,16 @@ const Ads = () => {
         dispatch(FetchProductsAsync());
     }, []);
 
+    useEffect(() => {
+        setfilteredAds(totalAdsCount);
+    }, [totalAdsCount]);
+
     // console.log(totalAdsCount, approvedAdsCount, declinedAdsCount, closedAdsCount, pendingAdsCount);
 
     return (
         <div className="flex flex-col mx-auto">
             {isLoading && <Loader />}
             <div className="bg-white shadow-card p-5">
-                {/* <div className="flex justify-between items-center mb-4">
-                    <h1 className="text-2xl font-semibold">Ads Overview</h1>
-                    <button className="bg-primary-orange text-white px-2 rounded p-1">
-                        Create Ad
-                    </button>
-                </div> */}
                 <div className="flex gap-5 flex-wrap">
                     {/* Total Ads */}
                     <div
