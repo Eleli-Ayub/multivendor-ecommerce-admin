@@ -1,0 +1,30 @@
+<div className="flex flex-col mx-auto gap-6 max-w-xl p-20 mt-10">
+
+    <div>
+        <span className="text-2xl font-bold">25%</span>
+        <div className="relative">
+            <div className="w-full bg-gray-200 rounded-sm h-8">
+                <div className="bg-red-500 h-full rounded-sm" style="width: 25%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <span className="text-2xl font-bold">50%</span>
+        <div className="relative">
+            <div className="w-full bg-gray-200 rounded-sm h-8">
+                <div className="bg-orange-500 h-full rounded-sm" style="width: 50%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <span className="text-2xl font-bold">95%</span>
+        <div className="relative">
+            <div className="w-full bg-gray-200 rounded-sm h-8">
+                <div className="bg-green-500 h-full rounded-sm" style="width: 95%"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
