@@ -13,8 +13,8 @@ const Users = () => {
     console.log(users);
 
     const allUsers = siteUsers;
-    const approvedUsers = siteUsers?.filter((user: any) => user.isApproved);
-    const pendingUsers = siteUsers?.filter((user: any) => user.isApproved);
+    const approvedUsers = siteUsers?.filter((user: any) => user.isapproved);
+    const pendingUsers = siteUsers?.filter((user: any) => !user.isapproved);
     const freemiumPlanUsers = siteUsers?.filter((user: any) => user.packagetype === 'freemium');
     const basicPlanUsers = siteUsers?.filter((user: any) => user.packagetype === 'basic');
     const standardPlanUsers = siteUsers?.filter((user: any) => user.packagetype === 'standard');
@@ -22,6 +22,13 @@ const Users = () => {
 
     const dispatch = useDispatch<AppDispatch>();
 
+    const totalPercentage = (allUsers.length / users?.length) * 100;
+    const approvedPercentage = (approvedUsers?.length / users?.length) * 100;
+    const pendingPercentage = (pendingUsers?.length / users?.length) * 100;
+    const freemiumPercentage = (freemiumPlanUsers?.length / users?.length) * 100;
+    const basicPercentage = (basicPlanUsers?.length / users?.length) * 100;
+    const standardPercentage = (standardPlanUsers?.length / users?.length) * 100;
+    const preemiumPercentage = (premiumPlanUsers?.length / users?.length) * 100;
     useEffect(() => {
         dispatch(getAllUsers());
     }, []);
@@ -31,105 +38,198 @@ const Users = () => {
 
     return (
         <div className="flex flex-col mx-auto">
-            <div className="bg-white shadow-card p-5">
-                <div className="flex cusrsor-pointer justify-between items-center mb-4">
-                    <h1 className="text-2xl font-semibold">Users Overview</h1>
-                    <button className="bg-primary-orange text-white px-2 rounded p-1">
-                        Add User
-                    </button>
+            <div className="flex gap-4">
+                {/* with half */}
+
+                <div className="w-[60%] h-300 bg-white radius-[8px] shadow-card ">
+                    <h1 className="text-center mt-2">Users Statistics</h1>
+
+                    <div className="flex flex-col mx-auto gap-6 max-w-xl px-20 pb-5 mt-5">
+                        <div>
+                            <span className="text-black">Total</span>
+                            <div className="relative">
+                                <div className="w-full bg-gray-200 rounded-sm   h-[10px]">
+                                    <div
+                                        className="bg-primary-orange h-full rounded-sm"
+                                        style={{ width: `${totalPercentage}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span className="text-black">Approved</span>
+                            <div className="relative">
+                                <div className="w-full bg-gray-200 rounded-sm   h-[10px]">
+                                    <div
+                                        className="bg-green-500 h-full rounded-sm"
+                                        style={{ width: `${approvedPercentage}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span className="text-black">Pending</span>
+                            <div className="relative">
+                                <div className="w-full bg-gray-200 rounded-sm   h-[10px]">
+                                    <div
+                                        className="bg-orange-400  h-full rounded-sm"
+                                        style={{ width: `${pendingPercentage}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span className="text-black">Freemium</span>
+                            <div className="relative">
+                                <div className="w-full bg-gray-200 rounded-sm   h-[10px]">
+                                    <div
+                                        className="bg-red-600  h-full rounded-sm"
+                                        style={{ width: `${freemiumPercentage}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span className="text-black">Basic</span>
+                            <div className="relative">
+                                <div className="w-full bg-gray-200 rounded-sm   h-[10px]">
+                                    <div
+                                        className=" bg-green-800 h-full rounded-sm"
+                                        style={{ width: `${basicPercentage}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <span className="text-black">Standard</span>
+                            <div className="relative">
+                                <div className="w-full bg-gray-200 rounded-sm   h-[10px]">
+                                    <div
+                                        className=" bg-green-800 h-full rounded-sm"
+                                        style={{ width: `${standardPercentage}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span className="text-black">Premium</span>
+                            <div className="relative">
+                                <div className="w-full bg-gray-200 rounded-sm   h-[10px]">
+                                    <div
+                                        className=" bg-green-800 h-full rounded-sm"
+                                        style={{ width: `${preemiumPercentage}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="flex gap-5 flex-wrap">
-                    {/* Total Ads */}
-                    <div
-                        className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-200 text-white  "
-                        onClick={() => setfilterdUsers(allUsers)}
-                    >
-                        <People className="text-white" />
-                        <div>
-                            <h1 className="text-2xl font-semibold text-white">
-                                {allUsers?.length}
-                            </h1>
-                            <p className="text-sm">All users</p>
-                        </div>
-                    </div>
 
-                    {/* Approved Ads */}
-                    <div
-                        className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-300 text-white "
-                        onClick={() => setfilterdUsers(approvedUsers)}
-                    >
-                        <TbActivityHeartbeat size="32" className="text-white" />
-                        <div>
-                            <h1 className="text-2xl font-semibold text-white">
-                                {approvedUsers?.length}
-                            </h1>
-                            <p className="text-sm">Approved Users</p>
-                        </div>
+                <div className="bg-white shadow-card p-5">
+                    <div className="flex cusrsor-pointer justify-between items-center mb-4">
+                        <h1 className="text-2xl font-semibold">Users Overview</h1>
+                        <button className="bg-primary-orange text-white px-2 rounded p-1">
+                            Add User
+                        </button>
                     </div>
-                    <div
-                        className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-400 text-white "
-                        onClick={() => setfilterdUsers(pendingUsers)}
-                    >
-                        <Pending className="text-white" />
-                        <div>
-                            <h1 className="text-2xl font-semibold text-white">
-                                {pendingUsers?.length}
-                            </h1>
-                            <p className="text-sm">Pending users</p>
+                    <div className="flex gap-5 flex-wrap">
+                        {/* Total Ads */}
+                        <div
+                            className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-200 text-white  "
+                            onClick={() => setfilterdUsers(allUsers)}
+                        >
+                            <People className="text-white" />
+                            <div>
+                                <h1 className="text-2xl font-semibold text-white">
+                                    {allUsers?.length}
+                                </h1>
+                                <p className="text-sm">All users</p>
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-500 text-white "
-                        onClick={() => setfilterdUsers(freemiumPlanUsers)}
-                    >
-                        <MoneyOff className="text-white" />
-                        <div>
-                            <h1 className="text-2xl font-semibold text-white">
-                                {freemiumPlanUsers?.length}
-                            </h1>
-                            <p className="text-sm">Freemium plan</p>
-                        </div>
-                    </div>
 
-                    {/* Pending Ads */}
-                    <div
-                        className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-600 text-white "
-                        onClick={() => setfilterdUsers(basicPlanUsers)}
-                    >
-                        <Money className="text-white" />
-                        <div>
-                            <h1 className="text-2xl font-semibold text-white">
-                                {basicPlanUsers?.length}
-                            </h1>
-                            <p className="text-sm">Basic Plan</p>
+                        {/* Approved Ads */}
+                        <div
+                            className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-300 text-white "
+                            onClick={() => setfilterdUsers(approvedUsers)}
+                        >
+                            <TbActivityHeartbeat size="32" className="text-white" />
+                            <div>
+                                <h1 className="text-2xl font-semibold text-white">
+                                    {approvedUsers?.length}
+                                </h1>
+                                <p className="text-sm">Approved Users</p>
+                            </div>
                         </div>
-                    </div>
-
-                    {/* Declined Ads */}
-                    <div
-                        className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-700 text-white "
-                        onClick={() => setfilterdUsers(standardPlanUsers)}
-                    >
-                        <Money className="text-white" />
-                        <div>
-                            <h1 className="text-2xl font-semibold text-white">
-                                {standardPlanUsers?.length}
-                            </h1>
-                            <p className="text-sm">Standard Plan</p>
+                        <div
+                            className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-400 text-white "
+                            onClick={() => setfilterdUsers(pendingUsers)}
+                        >
+                            <Pending className="text-white" />
+                            <div>
+                                <h1 className="text-2xl font-semibold text-white">
+                                    {pendingUsers?.length}
+                                </h1>
+                                <p className="text-sm">Pending users</p>
+                            </div>
                         </div>
-                    </div>
+                        <div
+                            className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-500 text-white "
+                            onClick={() => setfilterdUsers(freemiumPlanUsers)}
+                        >
+                            <MoneyOff className="text-white" />
+                            <div>
+                                <h1 className="text-2xl font-semibold text-white">
+                                    {freemiumPlanUsers?.length}
+                                </h1>
+                                <p className="text-sm">Freemium plan</p>
+                            </div>
+                        </div>
 
-                    {/* Closed Ads */}
-                    <div
-                        className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-800 text-white "
-                        onClick={() => setfilterdUsers(premiumPlanUsers)}
-                    >
-                        <MoneySharp className="text-white" />
-                        <div>
-                            <h1 className="text-2xl font-semibold text-white">
-                                {premiumPlanUsers?.length}
-                            </h1>
-                            <p className="text-sm">premium Plan</p>
+                        {/* Pending Ads */}
+                        <div
+                            className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-600 text-white "
+                            onClick={() => setfilterdUsers(basicPlanUsers)}
+                        >
+                            <Money className="text-white" />
+                            <div>
+                                <h1 className="text-2xl font-semibold text-white">
+                                    {basicPlanUsers?.length}
+                                </h1>
+                                <p className="text-sm">Basic Plan</p>
+                            </div>
+                        </div>
+
+                        {/* Declined Ads */}
+                        <div
+                            className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-700 text-white "
+                            onClick={() => setfilterdUsers(standardPlanUsers)}
+                        >
+                            <Money className="text-white" />
+                            <div>
+                                <h1 className="text-2xl font-semibold text-white">
+                                    {standardPlanUsers?.length}
+                                </h1>
+                                <p className="text-sm">Standard Plan</p>
+                            </div>
+                        </div>
+
+                        {/* Closed Ads */}
+                        <div
+                            className="p-4 rounded h-[100px] w-[220px] shadow-custom flex items-center cusrsor-pointer justify-between bg-orange-800 text-white "
+                            onClick={() => setfilterdUsers(premiumPlanUsers)}
+                        >
+                            <MoneySharp className="text-white" />
+                            <div>
+                                <h1 className="text-2xl font-semibold text-white">
+                                    {premiumPlanUsers?.length}
+                                </h1>
+                                <p className="text-sm">premium Plan</p>
+                            </div>
                         </div>
                     </div>
                 </div>
