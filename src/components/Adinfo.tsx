@@ -180,7 +180,7 @@ const ProductInfo = () => {
                         className="h-full w-full object-cover rounded"
                     />
                 </div> */}
-                <div className="table-container shadow-card w-full lg:w-[30%] rounded-[8px]">
+                <div className="w-full lg:w-[30%] rounded-[8px] no-scrollbar table-auto overflow-x-auto bg-white  shadow-md">
                     <h2>Product Data</h2>
                     <table>
                         <tbody>
@@ -224,7 +224,7 @@ const ProductInfo = () => {
                         </tbody>
                     </table>
                 </div>
-                <div className="table-container shadow-custom bg-yellow-50 w-full lg:w-[30%] rounded-[8px] ">
+                <div className="w-full lg:w-[30%] rounded-[8px] no-scrollbar table-auto overflow-x-auto bg-white  shadow-md">
                     <h2>Product Actions</h2>
                     <table>
                         <tbody>
@@ -276,10 +276,7 @@ const ProductInfo = () => {
                         </tbody>
                     </table>
                 </div>{' '}
-                <div
-                    className="table-container shadow-custom w-full lg:w-[30%] rounded-[8px]"
-                    style={{ maxWidth: '600px' }}
-                >
+                <div className="w-full lg:w-[30%] rounded-[8px] no-scrollbar table-auto overflow-x-auto bg-white  shadow-md">
                     <h2>Product dates</h2>
                     <table>
                         <tbody>
