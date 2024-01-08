@@ -22,7 +22,7 @@ const Users = () => {
 
     const dispatch = useDispatch<AppDispatch>();
 
-    const totalPercentage = (allUsers.length / users?.length) * 100;
+    const totalPercentage = (allUsers?.length / users?.length) * 100;
     const approvedPercentage = (approvedUsers?.length / users?.length) * 100;
     const pendingPercentage = (pendingUsers?.length / users?.length) * 100;
     const freemiumPercentage = (freemiumPlanUsers?.length / users?.length) * 100;
