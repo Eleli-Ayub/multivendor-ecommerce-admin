@@ -171,7 +171,7 @@ const ProductInfo = () => {
                 </div>
             </div>
 
-            <div className="flex flex-row gap-4 w-screen p-10 flex-wrap">
+            <div className="flex flex-row w-screen p-10 flex-wrap justify-around">
                 {/* <div className="image-container">
                     <h2>Main image</h2>
                     <img
@@ -180,7 +180,7 @@ const ProductInfo = () => {
                         className="h-full w-full object-cover rounded"
                     />
                 </div> */}
-                <div className="table-container shadow-card" style={{ minWidth: '300px' }}>
+                <div className="table-container shadow-card w-full lg:w-[30%] rounded-[8px]">
                     <h2>Product Data</h2>
                     <table>
                         <tbody>
@@ -224,7 +224,7 @@ const ProductInfo = () => {
                         </tbody>
                     </table>
                 </div>
-                <div className="table-container shadow-custom " style={{ minWidth: '400px' }}>
+                <div className="table-container shadow-custom bg-yellow-50 w-full lg:w-[30%] rounded-[8px] ">
                     <h2>Product Actions</h2>
                     <table>
                         <tbody>
@@ -276,7 +276,10 @@ const ProductInfo = () => {
                         </tbody>
                     </table>
                 </div>{' '}
-                <div className="table-container shadow-custom" style={{ maxWidth: '600px' }}>
+                <div
+                    className="table-container shadow-custom w-full lg:w-[30%] rounded-[8px]"
+                    style={{ maxWidth: '600px' }}
+                >
                     <h2>Product dates</h2>
                     <table>
                         <tbody>
