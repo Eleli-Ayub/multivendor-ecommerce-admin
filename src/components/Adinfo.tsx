@@ -66,7 +66,7 @@ const ProductInfo = () => {
                     <div className="flex flex-col md:flex-row md:gap-5">
                         <div className="md:flex-1">
                             <div className="flex flex-col gap-4">
-                                <div style={{ height: '600px' }} className="">
+                                <div style={{ height: '400px' }} className="">
                                     <img
                                         src={` ${productImages[selectedImageIndex]}`}
                                         className=" rounded-xl w-full max-h-full  object-cover object-center"
@@ -171,7 +171,7 @@ const ProductInfo = () => {
                 </div>
             </div>
 
-            <div className="flex flex-row w-screen p-10 flex-wrap justify-around">
+            <div className="flex flex-row w-[100%] p-10 flex-wrap justify-around">
                 {/* <div className="image-container">
                     <h2>Main image</h2>
                     <img
@@ -180,7 +180,7 @@ const ProductInfo = () => {
                         className="h-full w-full object-cover rounded"
                     />
                 </div> */}
-                <div className="w-full lg:w-[30%] rounded-[8px] no-scrollbar table-auto overflow-x-auto bg-white  shadow-md">
+                <div className="w-full lg:w-[30%] rounded-[8px] no-scrollbar table-auto overflow-x-auto bg-white  shadow-md p-2">
                     <h2>Product Data</h2>
                     <table>
                         <tbody>
@@ -224,7 +224,7 @@ const ProductInfo = () => {
                         </tbody>
                     </table>
                 </div>
-                <div className="w-full lg:w-[30%] rounded-[8px] no-scrollbar table-auto overflow-x-auto bg-white  shadow-md">
+                <div className="w-full lg:w-[30%] rounded-[8px] no-scrollbar table-auto overflow-x-auto bg-white  shadow-md p-2">
                     <h2>Product Actions</h2>
                     <table>
                         <tbody>
@@ -276,7 +276,7 @@ const ProductInfo = () => {
                         </tbody>
                     </table>
                 </div>{' '}
-                <div className="w-full lg:w-[30%] rounded-[8px] no-scrollbar table-auto overflow-x-auto bg-white  shadow-md">
+                <div className="w-full lg:w-[30%] rounded-[8px] no-scrollbar table-auto overflow-x-auto bg-white  shadow-md p-2">
                     <h2>Product dates</h2>
                     <table>
                         <tbody>
