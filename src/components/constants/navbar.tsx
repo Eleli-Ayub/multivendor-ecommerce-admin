@@ -68,12 +68,12 @@ const Navbar: React.FC<LoginFormProps> = () => {
 
                 <ul className="list-none hidden sm:flex flex-row gap-10">
                     <div>
-                        <button
-                            className="bg-primary-orange text-black  p-1  capitalize rounded px-4 hover:bg-secondary-orange}"
+                        {/* <button
+                            className="bg-primary-orange text-black  p-1  capitalize rounded px-4 hover:bg-secondary-orange} text-white"
                             // onClick={() => SetShowAdsForm(true)}
                         >
                             sell
-                        </button>
+                        </button> */}
                     </div>
                     {Links.map((nav) => (
                         <li

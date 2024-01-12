@@ -102,7 +102,7 @@ const LoginForm: React.FC = ({}) => {
                             Submit
                         </button>
 
-                        <p className="text-gray-500 text-center mt-3">
+                        {/* <p className="text-gray-500 text-center mt-3">
                             Forgot Password?
                             <a href="/login" className="ml-2 text-blue-500">
                                 Reset Password
@@ -113,7 +113,7 @@ const LoginForm: React.FC = ({}) => {
                             <a href="/register" className="ml-2 text-blue-500">
                                 Sign Up
                             </a>{' '}
-                        </p>
+                        </p> */}
                     </form>
                 </div>
             </div>
