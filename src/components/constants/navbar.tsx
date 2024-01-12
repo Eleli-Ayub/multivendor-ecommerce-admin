@@ -29,7 +29,7 @@ const Navbar: React.FC<LoginFormProps> = () => {
         } else {
             console.error('Admin data not found in localStorage');
         }
-    }, [user]);
+    }, [user, adminDataString]);
 
     useEffect(() => {
         const handleScroll = () => {
