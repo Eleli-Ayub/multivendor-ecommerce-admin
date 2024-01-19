@@ -20,6 +20,7 @@ import Packages from '../pages/packages';
 import Notifications from '../pages/notifications';
 import PrivateRoute from '../components/Private';
 import MainAds from '../pages/MainAds';
+import InquiriesPage from '../pages/Inquiries';
 // import MainAd from '../components/MainAd';
 
 const Index = () => {
@@ -48,6 +49,14 @@ const Index = () => {
                         element={
                             <PrivateRoute>
                                 <Users />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/inquiries"
+                        element={
+                            <PrivateRoute>
+                                <InquiriesPage />
                             </PrivateRoute>
                         }
                     />

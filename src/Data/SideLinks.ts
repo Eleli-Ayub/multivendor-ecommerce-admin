@@ -5,6 +5,7 @@ import { TbCategory } from "react-icons/tb";
 import { MdPayment } from "react-icons/md";
 import { MdNotifications } from "react-icons/md";
 import { BsMessenger } from "react-icons/bs";
+import { FaQuestionCircle } from "react-icons/fa";
 
 export const AdminSideLinks = [
   {
@@ -38,6 +39,11 @@ export const AdminSideLinks = [
     name: "Packages",
     url: "/packages",
     icon: MdPayment,
+  },
+  {
+    name: "Inquiries",
+    url: "/inquiries",
+    icon: FaQuestionCircle,
   },
   {
     name: "Notifications",
