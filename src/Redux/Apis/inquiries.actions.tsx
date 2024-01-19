@@ -43,3 +43,15 @@ export const MarkAsRead = async (id: any): Promise<any> => {
         throw new Error();
     }
 };
+
+export const DeleteInquiry = async (id: any): Promise<any> => {
+    try {
+        const response = await axios.delete(`${url}/${id}`);
+        toast.success('Deleted successfully...');
+        return response.data;
+    } catch (error: any) {
+        toast.success('Error deleting');
+        console.error(error);
+        throw new Error();
+    }
+};

@@ -7,7 +7,7 @@ import InquiryModal from './InquiryModal';
 import { AppDispatch } from '../../Redux/store';
 import GlobalLoader from '../Global/GlobalLoader';
 import Loader from '../constants/loader';
-import { GetInquiries, MarkAsRead } from '../../Redux/Apis/inquiries.actions';
+import { DeleteInquiry, GetInquiries, MarkAsRead } from '../../Redux/Apis/inquiries.actions';
 
 const Inquiries = () => {
     const [inquiry, setInquiry] = useState([]);
@@ -17,6 +17,11 @@ const Inquiries = () => {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
     const userid = 'admin';
+
+    const deleteEnquiry = async (id: any) => {
+        await DeleteInquiry(id);
+        fetchData();
+    };
 
     const fetchData = async () => {
         try {
@@ -98,7 +103,10 @@ const Inquiries = () => {
                                     }}
                                 />
                             )}
-                            <Delete className="text-red-600" />
+                            <Delete
+                                className="text-red-600"
+                                onClick={() => deleteEnquiry(item?._id)}
+                            />
                         </div>
                     </li>
                 </ul>
