@@ -53,13 +53,13 @@ const Inquiries = () => {
     };
 
     return (
-        <div className=" px-[10px] py-[20px] md:px-8 md:py-20 max-w-6xl mx-auto bg-white h-[100vh] shadow-lg">
+        <div className=" px-[10px] py-[20px] md:px-8 md:py-20 max-w-6xl mx-auto bg-gray-light h-[100vh] shadow-lg overflow-y-scroll no-scrollbar items-center">
             {isLoading && <Loader />}
             {loader && <GlobalLoader />}
             {inquiry?.map((item: any) => (
                 <ul
                     key={item?._id}
-                    className={`max-w-2xl mb-2 bg-white text-black-main text-[16px] rounded-md shadow-lg  border-t border-t-gray-100  ${
+                    className={`max-w-2xl mb-2 bg-white text-black-main text-[16px] rounded-md shadow-lg mx-auto  border-t border-t-gray-100  ${
                         item?.read
                             ? 'border-l-3  border-green-light '
                             : 'border-l-4 border-green-dark'

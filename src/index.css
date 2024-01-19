@@ -257,3 +257,35 @@ img {
   width: 500px;
   height: 500px;
 }
+
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+form {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+
+@layer utilities {
+  @variants responsive {
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+  }
+}
