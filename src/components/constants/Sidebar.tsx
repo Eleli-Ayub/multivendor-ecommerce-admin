@@ -11,7 +11,7 @@ const Sidebar = () => {
   const [open, setOpen] = useState(true);
 
   return (
-    <div className="h-screen">
+    <div className="h-full  pt-5">
       <div
         className={` ${
           open ? "w-72" : "w-20 "
@@ -19,9 +19,10 @@ const Sidebar = () => {
         style={{
           backgroundColor: "#0a2540",
           fill: "#425466",
-          height: "100vh",
-          maxHeight: "100vh",
+          height: "98vh",
+          maxHeight: "90vh",
           position: "sticky",
+          top: "0",
         }}
       >
         <img

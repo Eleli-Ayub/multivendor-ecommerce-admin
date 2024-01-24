@@ -1,114 +1,114 @@
-import { Table } from 'antd';
-import { Delete, Edit, Visibility } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../Redux/slices/AuthSlice';
-import { AppDispatch } from '../Redux/store';
-import Loader from './constants/loader';
-import { ApproveUser, RevokeUser } from '../Redux/Apis/users.actions';
-import { setLoader } from '../Redux/slices/Loaderslice';
+import { Table } from "antd";
+import { Delete, Edit, Visibility } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers } from "../Redux/slices/AuthSlice";
+import { AppDispatch } from "../Redux/store";
+import Loader from "./constants/loader";
+import { ApproveUser, RevokeUser } from "../Redux/Apis/users.actions";
+import { setLoader } from "../Redux/slices/Loaderslice";
 
 type UserProps = {
-    users: any;
+  users: any;
 };
 
 const UsersTable: React.FC<UserProps> = ({ users }) => {
-    const { isLoading } = useSelector((state: any) => state.auth);
-    const navigate = useNavigate();
+  const { isLoading } = useSelector((state: any) => state.auth);
+  const navigate = useNavigate();
 
-    const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
-    const approve = async (id: any) => {
-        dispatch(setLoader(true));
-        const response = await ApproveUser(id);
-        dispatch(setLoader(false));
-        dispatch(getAllUsers());
-        return response;
-    };
+  const approve = async (id: any) => {
+    dispatch(setLoader(true));
+    const response = await ApproveUser(id);
+    dispatch(setLoader(false));
+    dispatch(getAllUsers());
+    return response;
+  };
 
-    const Revoke = async (id: any) => {
-        dispatch(setLoader(true));
-        const response = await RevokeUser(id);
-        dispatch(setLoader(false));
-        dispatch(getAllUsers());
-        return response;
-    };
+  const Revoke = async (id: any) => {
+    dispatch(setLoader(true));
+    const response = await RevokeUser(id);
+    dispatch(setLoader(false));
+    dispatch(getAllUsers());
+    return response;
+  };
 
-    const TableData = [
-        {
-            title: 'First Name',
-            dataIndex: 'firstname',
-        },
-        {
-            title: 'Email',
-            dataIndex: 'email',
-        },
-        {
-            title: 'Phone',
-            dataIndex: 'phone',
-        },
-        {
-            title: 'Status',
-            dataIndex: 'isapproved',
-            render: (isapproved: Boolean, record: any) => (
-                <span className="flex gap-2">
-                    <span style={{ color: isapproved ? 'green' : 'red' }}>
-                        {isapproved ? 'Approved' : 'Pending'}
-                    </span>
-                    <span className="underline">
-                        {isapproved ? (
-                            <div className="flex gap-2">
-                                <span
-                                    onClick={() => Revoke(record.userid)}
-                                    className="cursor-pointer"
-                                >
-                                    Revoke
-                                </span>
-                            </div>
-                        ) : (
-                            <div className="flex gap-2">
-                                <span
-                                    onClick={() => approve(record.userid)}
-                                    className="cursor-pointer"
-                                >
-                                    Approve
-                                </span>
-                                <span>Revoke</span>
-                            </div>
-                        )}
-                    </span>
+  const TableData = [
+    {
+      title: "First Name",
+      dataIndex: "firstname",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+    },
+    {
+      title: "Status",
+      dataIndex: "isapproved",
+      render: (isapproved: Boolean, record: any) => (
+        <span className="flex gap-2">
+          <span style={{ color: isapproved ? "green" : "red" }}>
+            {isapproved ? "Approved" : "Pending"}
+          </span>
+          <span className="underline">
+            {isapproved ? (
+              <div className="flex gap-2">
+                <span
+                  onClick={() => Revoke(record.userid)}
+                  className="cursor-pointer"
+                >
+                  Revoke
                 </span>
-            ),
-        },
-        {
-            title: 'Actions',
-            dataIndex: 'action',
-            render: (_text: any, record: any) => {
-                // console.log(record, text);
-                return (
-                    <div
-                        className="flex mr-2 gap-3"
-                        onClick={() => navigate(`/users/${record.userid}`)}
-                    >
-                        <Visibility className="text-primary-orange" />
-                        <Edit className="text-green-500" />
-                        <Delete className="text-red-600" />
-                    </div>
-                );
-            },
-        },
-    ];
+              </div>
+            ) : (
+              <div className="flex gap-2">
+                <span
+                  onClick={() => approve(record.userid)}
+                  className="cursor-pointer"
+                >
+                  Approve
+                </span>
+                <span>Revoke</span>
+              </div>
+            )}
+          </span>
+        </span>
+      ),
+    },
+    {
+      title: "Actions",
+      dataIndex: "action",
+      render: (_text: any, record: any) => {
+        // console.log(record, text);
+        return (
+          <div
+            className="flex mr-2 gap-3"
+            onClick={() => navigate(`/users/${record.userid}`)}
+          >
+            <Visibility className="text-primary-orange" />
+            <Edit className="text-green-500" />
+            <Delete className="text-red-600" />
+          </div>
+        );
+      },
+    },
+  ];
 
-    return (
-        <div className="mt-4">
-            {isLoading && <Loader />}
-            <Table
-                columns={TableData}
-                dataSource={users} // Use the imported user data as the data source
-                className="border rounded-sm"
-            ></Table>
-        </div>
-    );
+  return (
+    <div className="mt-4">
+      {isLoading && <Loader />}
+      <Table
+        columns={TableData}
+        dataSource={users} // Use the imported user data as the data source
+        className="border rounded-[20px]"
+      ></Table>
+    </div>
+  );
 };
 
 export default UsersTable;
