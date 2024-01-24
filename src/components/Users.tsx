@@ -1,10 +1,4 @@
-import {
-  Money,
-  MoneyOff,
-  MoneySharp,
-  Pending,
-  People,
-} from "@mui/icons-material";
+import { Money, MoneySharp, Pending, People } from "@mui/icons-material";
 import UsersTable from "../components/usersTable";
 import { TbActivityHeartbeat } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,9 +16,9 @@ const Users = () => {
   const allUsers = siteUsers;
   const approvedUsers = siteUsers?.filter((user: any) => user.isapproved);
   const pendingUsers = siteUsers?.filter((user: any) => !user.isapproved);
-  const freemiumPlanUsers = siteUsers?.filter(
-    (user: any) => user.packagetype === "freemium"
-  );
+  //   const freemiumPlanUsers = siteUsers?.filter(
+  //     (user: any) => user.packagetype === "freemium"
+  //   );
   const basicPlanUsers = siteUsers?.filter(
     (user: any) => user.packagetype === "basic"
   );
@@ -59,7 +53,7 @@ const Users = () => {
         <Card className="w-full lg:w-[60%] h-auto rounded-[20px] shadow-sm">
           <h1 className="text-2xl font-semibold text-center">User's Stats</h1>
 
-          <div className="flex flex-col mx-auto gap-6 max-w-2xl px-20 pb-5 mt-5">
+          <div className="flex flex-col mx-auto gap-6 max-w-2xl px-5 pb-5 mt-5">
             <div>
               <span className="text-black">Total</span>
               <div className="relative">
