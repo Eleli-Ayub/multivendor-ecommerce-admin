@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import AdvertModal from "../components/Modals/AdvertsModal";
-import { ActivateMainAd, fetchMainAds } from "../Redux/slices/action.ads";
+import {
+  ActivateMainAd,
+  DeactivateMainad,
+  fetchMainAds,
+} from "../Redux/slices/action.ads";
 import { Visibility, Edit } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { Table } from "antd";
@@ -22,9 +26,9 @@ const Adverts = () => {
   function toggleProductStatus(advertid: any, isActive: Boolean): void {
     throw new Error("Function not implemented.");
   }
-
-  function deactivateProduct(advertid: any): void {
-    throw new Error("Function not implemented.");
+  async function deactivateProduct(advertid: any): Promise<void> {
+    await DeactivateMainad(advertid);
+    getMainAds();
   }
 
   async function activateProduct(advertid: any): Promise<void> {
@@ -89,33 +93,6 @@ const Adverts = () => {
     //   title: "Category",
     //   dataIndex: "category",
     // },
-    {
-      title: "DateAdded",
-      dataIndex: "datecreated",
-      render: (datecreated: string) => {
-        <p>{new Date(datecreated).toLocaleDateString()}</p>;
-      },
-    },
-    {
-      title: "IsApproved",
-      dataIndex: "isapproved",
-
-      render: (isApproved: Boolean) => (
-        <span className="flex gap-2">
-          <span style={{ color: isApproved ? "green" : "red" }}>
-            {isApproved ? "Approved" : "Pending"}
-          </span>
-        </span>
-      ),
-      // filters: [
-      //   { text: "Approved", value: "true" },
-      //   { text: "Pending", value: "false" },
-      // ],
-      // onFilter: (value: any, record: any) => {
-      //   console.log(value);
-      //   return record.isapproved === value;
-      // },
-    },
 
     {
       title: "IsDeleted",
@@ -141,15 +118,15 @@ const Adverts = () => {
     {
       title: "IsSuspended",
       dataIndex: "issuspended",
-      render: (isSuspended: Boolean, _record: any) => (
+      render: (isSuspended: Boolean, record: any) => (
         <span className="flex gap-2">
           {isSuspended ? "Suspended" : "No"}
-          {/* <span
-        onClick={() => toggleProductStatus(record.productid, isSuspended)}
-        className="underline"
-      >
-        {isSuspended ? "Unsuspend" : "Suspend"}
-      </span> */}
+          <span
+            onClick={() => toggleProductStatus(record?.advertid, isSuspended)}
+            className="underline"
+          >
+            {isSuspended ? "Unsuspend" : "Suspend"}
+          </span>
         </span>
       ),
     },
