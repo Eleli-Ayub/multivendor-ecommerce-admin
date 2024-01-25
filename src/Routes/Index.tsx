@@ -21,6 +21,7 @@ import Notifications from "../pages/notifications";
 import PrivateRoute from "../components/Private";
 import MainAds from "../pages/MainAds";
 import InquiriesPage from "../pages/Inquiries";
+import MainAdPage from "../pages/Mainad";
 // import MainAd from '../components/MainAd';
 
 const Index = () => {
@@ -127,6 +128,14 @@ const Index = () => {
             element={
               <PrivateRoute>
                 <SingleUser />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/main/:id"
+            element={
+              <PrivateRoute>
+                <MainAdPage />
               </PrivateRoute>
             }
           />

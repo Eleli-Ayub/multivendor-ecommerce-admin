@@ -173,3 +173,55 @@ export const createMainAd = async (payload: any): Promise<any> => {
     throw new Error();
   }
 };
+
+export const fetchMainAds = async () => {
+  const response = await axiosService.get("/mainads/getmainads");
+  return response;
+};
+
+export const fetchSingleMainAd = async (id: any) => {
+  // Your API call using Axios
+  const response = await axiosService.get(
+    `/mainads/getsinglemainad?id='${id}'`
+  );
+  return response;
+};
+
+export const ActivateMainAd = async (id: string): Promise<any> => {
+  try {
+    const response = await axiosService.post(`/mainads/activate?id='${id}'`);
+    return response;
+  } catch (error: any) {
+    console.error(error);
+    throw new Error();
+  }
+};
+export const DeactivateMainad = async (id: string): Promise<any> => {
+  try {
+    const response = await axiosService.post(`/mainads/deactivate?id='${id}'`);
+    return response;
+  } catch (error: any) {
+    console.error(error);
+    throw new Error();
+  }
+};
+
+export const Deletemainad = async (id: string): Promise<any> => {
+  try {
+    const response = await axiosService.post(`/mainads/delete?id='${id}'`);
+    return response;
+  } catch (error: any) {
+    console.error(error);
+    throw new Error();
+  }
+};
+
+export const RestoreMainAd = async (id: string): Promise<any> => {
+  try {
+    const response = await axiosService.post(`/mainads/restore?id='${id}'`);
+    return response;
+  } catch (error: any) {
+    console.error(error);
+    throw new Error();
+  }
+};
