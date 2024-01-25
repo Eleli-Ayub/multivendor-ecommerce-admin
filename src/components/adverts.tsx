@@ -3,6 +3,8 @@ import AdvertModal from "../components/Modals/AdvertsModal";
 import {
   ActivateMainAd,
   DeactivateMainad,
+  Deletemainad,
+  RestoreMainAd,
   fetchMainAds,
 } from "../Redux/slices/action.ads";
 import { Visibility, Edit } from "@mui/icons-material";
@@ -36,12 +38,14 @@ const Adverts = () => {
     getMainAds();
   }
 
-  function restoreProduct(advertid: any): void {
-    throw new Error("Function not implemented.");
+  async function restoreProduct(advertid: any): Promise<void> {
+    await RestoreMainAd(advertid);
+    getMainAds();
   }
 
-  function deleteProduct(advertid: any): void {
-    throw new Error("Function not implemented.");
+  async function deleteProduct(advertid: any): void {
+    await Deletemainad(advertid);
+    getMainAds();
   }
 
   function setAdID(advertid: any) {
