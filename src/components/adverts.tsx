@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AdvertModal from "../components/Modals/AdvertsModal";
-import { fetchMainAds } from "../Redux/slices/action.ads";
+import { ActivateMainAd, fetchMainAds } from "../Redux/slices/action.ads";
 import { Visibility, Edit } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { Table } from "antd";
@@ -19,6 +19,35 @@ const Adverts = () => {
     getMainAds();
   }, []);
 
+  function toggleProductStatus(advertid: any, isActive: Boolean): void {
+    throw new Error("Function not implemented.");
+  }
+
+  function deactivateProduct(advertid: any): void {
+    throw new Error("Function not implemented.");
+  }
+
+  async function activateProduct(advertid: any): Promise<void> {
+    await ActivateMainAd(advertid);
+    getMainAds();
+  }
+
+  function restoreProduct(advertid: any): void {
+    throw new Error("Function not implemented.");
+  }
+
+  function deleteProduct(advertid: any): void {
+    throw new Error("Function not implemented.");
+  }
+
+  function setAdID(advertid: any) {
+    throw new Error("Function not implemented.");
+  }
+
+  function setIsEditing(arg0: boolean) {
+    throw new Error("Function not implemented.");
+  }
+
   const TableData = [
     {
       title: "Name",
@@ -35,15 +64,15 @@ const Adverts = () => {
               {isActive ? "Active" : "Inactive"}
             </span>
             <span
-              onClick={() => toggleProductStatus(record.productid, isActive)}
+              onClick={() => toggleProductStatus(record.advertid, isActive)}
               className="underline"
             >
               {isActive ? (
-                <span onClick={() => deactivateProduct(record.producttid)}>
+                <span onClick={() => deactivateProduct(record.advertid)}>
                   Deactivate
                 </span>
               ) : (
-                <span onClick={() => activateProduct(record.producttid)}>
+                <span onClick={() => activateProduct(record.advertid)}>
                   Activate
                 </span>
               )}
@@ -99,13 +128,11 @@ const Adverts = () => {
             className="underline cursor-pointer"
           >
             {isDeleted ? (
-              <span onClick={() => restoreProduct(record.producttid)}>
+              <span onClick={() => restoreProduct(record.advertid)}>
                 Restore
               </span>
             ) : (
-              <span onClick={() => deleteProduct(record.producttid)}>
-                Delete
-              </span>
+              <span onClick={() => deleteProduct(record.advertid)}>Delete</span>
             )}
           </span>
         </span>
@@ -140,7 +167,7 @@ const Adverts = () => {
           <Edit
             className="text-green-500"
             onClick={() => {
-              setAdID(record.producttid);
+              setAdID(record.advertid);
               setIsEditing(true);
             }}
           />
@@ -173,30 +200,3 @@ const Adverts = () => {
 };
 
 export default Adverts;
-function toggleProductStatus(productid: any, isActive: Boolean): void {
-  throw new Error("Function not implemented.");
-}
-
-function deactivateProduct(producttid: any): void {
-  throw new Error("Function not implemented.");
-}
-
-function activateProduct(producttid: any): void {
-  throw new Error("Function not implemented.");
-}
-
-function restoreProduct(producttid: any): void {
-  throw new Error("Function not implemented.");
-}
-
-function deleteProduct(producttid: any): void {
-  throw new Error("Function not implemented.");
-}
-
-function setAdID(producttid: any) {
-  throw new Error("Function not implemented.");
-}
-
-function setIsEditing(arg0: boolean) {
-  throw new Error("Function not implemented.");
-}
