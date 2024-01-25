@@ -43,7 +43,11 @@ const Adverts = () => {
     getMainAds();
   }
 
-  async function deleteProduct(advertid: any): void {
+  async function deleteProduct(advertid: any): Promise<void> {
+    await Deletemainad(advertid);
+    getMainAds();
+  }
+  async function Suspendproduct(advertid: any): Promise<void> {
     await Deletemainad(advertid);
     getMainAds();
   }
@@ -129,7 +133,11 @@ const Adverts = () => {
             onClick={() => toggleProductStatus(record?.advertid, isSuspended)}
             className="underline"
           >
-            {isSuspended ? "Unsuspend" : "Suspend"}
+            {isSuspended ? (
+              ""
+            ) : (
+              <span onClick={Suspendproduct(record.advertid)}>Suspend</span>
+            )}
           </span>
         </span>
       ),
