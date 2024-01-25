@@ -21,7 +21,7 @@ import Notifications from "../pages/notifications";
 import PrivateRoute from "../components/Private";
 import MainAds from "../pages/MainAds";
 import InquiriesPage from "../pages/Inquiries";
-import MainAdPage from "../pages/Mainad";
+import MainAdPage from "../pages/Main";
 // import MainAd from '../components/MainAd';
 
 const Index = () => {

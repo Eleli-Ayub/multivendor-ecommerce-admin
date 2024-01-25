@@ -8,26 +8,26 @@ import control from "../../assets/control.png";
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="h-full  pt-5">
       <div
         className={` ${
           open ? "w-72" : "w-20 "
-        } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
+        } bg-dark-purple h-screen p-5  pt-8 relative duration-300 overflow-y-scroll no-scrollbar`}
         style={{
           backgroundColor: "#0a2540",
           fill: "#425466",
           height: "98vh",
-          maxHeight: "90vh",
+          maxHeight: "98vh",
           position: "sticky",
           top: "0",
         }}
       >
         <img
           src={control}
-          className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
+          className={`absolute cursor-pointer -right-3 top-9 w-8 border-dark-purple
            border-2 rounded-full  ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
         />

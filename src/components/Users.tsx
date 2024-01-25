@@ -142,9 +142,9 @@ const Users = () => {
         <Card className=" rounded-[20px] shadow-sm">
           <div className="flex cusrsor-pointer justify-center gap-5 lg:justify-between items-center mb-4">
             <h1 className="text-2xl font-semibold">Users Overview</h1>
-            <button className="bg-primary-orange text-white px-2 rounded p-1">
+            {/* <button className="bg-primary-orange text-white px-2 rounded p-1">
               Add User
-            </button>
+            </button> */}
           </div>
           <div className="flex gap-5 flex-wrap items-center justify-center lg:justify-normal">
             {/* Total Ads */}
