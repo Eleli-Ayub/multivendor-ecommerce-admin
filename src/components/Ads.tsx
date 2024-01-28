@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Card, Skeleton } from "antd";
 import {
@@ -12,7 +12,8 @@ import { FetchProductsAsync } from "../Redux/slices/AdsSlice";
 import { AppDispatch } from "../Redux/store";
 
 const Ads = () => {
-  const { Ads: ads, isLoading } = useSelector((state: any) => state.AllAds);
+  const { Ads, isLoading } = useSelector((state: any) => state.AllAds);
+  const ads = Ads;
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -53,50 +54,56 @@ const Ads = () => {
 
   return (
     <div className="flex flex-col mx-auto p-3 w-full overflow-auto">
-      <Skeleton loading={isLoading} active>
-        <Card className="rounded-lg shadow-sm bg-white mb-4">
-          <h1 className="text-2xl font-semibold text-center">Ad's Stats</h1>
-          <div className="flex flex-wrap justify-center gap-6 p-5">
-            {stats.map(({ name, data, color }) => (
-              <div key={name} className="w-full max-w-xs">
-                <span className="text-black">{name}</span>
-                <div className="relative">
-                  <div className="w-full bg-gray-200 rounded-sm h-[10px]">
-                    <div
-                      className={`bg-${color} h-full rounded-sm`}
-                      style={{ width: `${calculatePercentage(data)}%` }}
-                    ></div>
+      <div className="flex flex-wrap gap-2 lg:flex-nowrap">
+        <div className="w-full lg:w-1/2 h-auto">
+          <Skeleton loading={isLoading} active>
+            <Card className="rounded-[20px] shadow-sm bg-white mb-4 h-full">
+              <h1 className="text-2xl font-semibold text-center">Ad's Stats</h1>
+              <div className="flex flex-col flex-wrap justify-center gap-6 p-5">
+                {stats.map(({ name, data, color }) => (
+                  <div key={name} className="w-full ">
+                    <span className="text-black">{name}</span>
+                    <div className="relative">
+                      <div className="w-full bg-gray-200 rounded-sm h-[10px]">
+                        <div
+                          className={`bg-${color} h-full rounded-sm`}
+                          style={{ width: `${calculatePercentage(data)}%` }}
+                        ></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </Card>
-      </Skeleton>
+            </Card>
+          </Skeleton>
+        </div>
 
-      <Skeleton loading={isLoading} active>
-        <Card className="rounded-lg shadow-sm bg-white">
-          <div className="flex flex-wrap justify-center gap-4 p-4">
-            {stats.map(({ name, data, color }) => (
-              <div
-                key={name}
-                className={`p-4 rounded shadow-custom flex items-center justify-between bg-${color} text-white cursor-pointer`}
-                style={{ minWidth: "220px", height: "100px" }}
-                onClick={() => setFilteredAds(data)}
-              >
-                {name === "Total" && <LibraryAdd />}
-                {name === "Approved" && <CheckOutlined />}
-                {name === "Pending" && <Pending />}
-                {name === "Declined" && <Cancel />}
-                <div>
-                  <h1 className="text-2xl font-semibold">{data.length}</h1>
-                  <p className="text-sm">{name} Ads</p>
-                </div>
+        <div className="w-full lg:w-1/2">
+          <Skeleton loading={isLoading} active>
+            <Card className="rounded-[20px] shadow-sm bg-white h-full">
+              <div className="flex flex-wrap gap-4 p-4">
+                {stats.map(({ name, data, color }) => (
+                  <div
+                    key={name}
+                    className={`p-4 rounded shadow-custom flex items-center justify-between bg-${color} text-white cursor-pointer`}
+                    style={{ minWidth: "220px", height: "100px" }}
+                    onClick={() => setFilteredAds(data)}
+                  >
+                    {name === "Total" && <LibraryAdd />}
+                    {name === "Approved" && <CheckOutlined />}
+                    {name === "Pending" && <Pending />}
+                    {name === "Declined" && <Cancel />}
+                    <div>
+                      <h1 className="text-2xl font-semibold">{data.length}</h1>
+                      <p className="text-sm">{name} Ads</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </Card>
-      </Skeleton>
+            </Card>
+          </Skeleton>
+        </div>
+      </div>
 
       <div className="mt-4">
         <Skeleton loading={isLoading} active>
