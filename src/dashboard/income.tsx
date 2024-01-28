@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch } from "../Redux/store";
 import { getAllUsers } from "../Redux/slices/AuthSlice";
-import { Card, Skeleton, Table, TableColumnsType } from "antd";
+import { Card, Skeleton } from "antd";
 import { Bar } from "react-chartjs-2";
 import "tailwindcss/tailwind.css";
 
@@ -23,29 +23,29 @@ interface SubscriptionCost {
 const UsersDashboard: React.FC = () => {
   const users = useSelector((state: any) => state.auth.users);
   const siteUsers = users;
-  const [filterdUsers, setfilterdUsers] = useState(users);
+  const [, setfilterdUsers] = useState(users);
 
   const allUsers = siteUsers;
-  const approvedUsers = siteUsers?.filter((user: any) => user.isapproved);
-  const pendingUsers = siteUsers?.filter((user: any) => !user.isapproved);
-  const basicPlanUsers = siteUsers?.filter(
-    (user: any) => user.packagetype === "basic"
-  );
-  const standardPlanUsers = siteUsers?.filter(
-    (user: any) => user.packagetype === "standard"
-  );
-  const premiumPlanUsers = siteUsers?.filter(
-    (user: any) => user.packagetype === "premium"
-  );
+  // const approvedUsers = siteUsers?.filter((user: any) => user.isapproved);
+  // const pendingUsers = siteUsers?.filter((user: any) => !user.isapproved);
+  // const basicPlanUsers = siteUsers?.filter(
+  //   (user: any) => user.packagetype === "basic"
+  // );
+  // const standardPlanUsers = siteUsers?.filter(
+  //   (user: any) => user.packagetype === "standard"
+  // );
+  // const premiumPlanUsers = siteUsers?.filter(
+  //   (user: any) => user.packagetype === "premium"
+  // );
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const totalPercentage = (allUsers?.length / users?.length) * 100;
-  const approvedPercentage = (approvedUsers?.length / users?.length) * 100;
-  const pendingPercentage = (pendingUsers?.length / users?.length) * 100;
-  const basicPercentage = (basicPlanUsers?.length / users?.length) * 100;
-  const standardPercentage = (standardPlanUsers?.length / users?.length) * 100;
-  const premiumPercentage = (premiumPlanUsers?.length / users?.length) * 100;
+  // const totalPercentage = (allUsers?.length / users?.length) * 100;
+  // const approvedPercentage = (approvedUsers?.length / users?.length) * 100;
+  // const pendingPercentage = (pendingUsers?.length / users?.length) * 100;
+  // const basicPercentage = (basicPlanUsers?.length / users?.length) * 100;
+  // const standardPercentage = (standardPlanUsers?.length / users?.length) * 100;
+  // const premiumPercentage = (premiumPlanUsers?.length / users?.length) * 100;
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -98,8 +98,11 @@ const UsersDashboard: React.FC = () => {
       )}, ${Math.floor(Math.random() * 256)}, 1)`,
       borderWidth: 1,
       data: incomeData
-        .filter((data) => data.subscriptionType === subscriptionType)
-        .map((data) => data.income),
+        .filter(
+          (data: { subscriptionType: string }) =>
+            data.subscriptionType === subscriptionType
+        )
+        .map((data: { income: any }) => data.income),
     })),
   };
 
