@@ -36,7 +36,7 @@ const Index = () => {
       <div className="id" id="root">
         <Routes>
           <Route
-            path="/"
+            path="/ads"
             element={
               <PrivateRoute>
                 <Ads />
@@ -103,7 +103,7 @@ const Index = () => {
           />
 
           <Route
-            path="/dashboard"
+            path="/"
             element={
               <PrivateRoute>
                 <DashboardPage />

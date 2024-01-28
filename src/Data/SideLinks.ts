@@ -15,7 +15,7 @@ export const AdminSideLinks = [
   },
   {
     name: "Ads",
-    url: "/",
+    url: "/ads",
     icon: FcAdvertising,
   },
   {
