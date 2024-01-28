@@ -25,7 +25,7 @@ const Adverts = () => {
     getMainAds();
   }, []);
 
-  function toggleProductStatus(advertid: any, isActive: Boolean): void {
+  function toggleProductStatus(__advertid: any, _isActive: Boolean): void {
     throw new Error("Function not implemented.");
   }
   async function deactivateProduct(advertid: any): Promise<void> {
@@ -52,11 +52,11 @@ const Adverts = () => {
     getMainAds();
   }
 
-  function setAdID(advertid: any) {
+  function setAdID(_advertid: any) {
     throw new Error("Function not implemented.");
   }
 
-  function setIsEditing(arg0: boolean) {
+  function setIsEditing(_arg0: boolean) {
     throw new Error("Function not implemented.");
   }
 
@@ -136,7 +136,9 @@ const Adverts = () => {
             {isSuspended ? (
               ""
             ) : (
-              <span onClick={Suspendproduct(record.advertid)}>Suspend</span>
+              <span onClick={() => Suspendproduct(record.advertid)}>
+                Suspend
+              </span>
             )}
           </span>
         </span>

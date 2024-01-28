@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "../components/constants/navbar";
-
 import Ads from "../pages/Ads";
 import Footer from "../components/constants/footer";
 import Users from "../pages/Users";
@@ -11,9 +10,7 @@ import { ToastContainer } from "react-toastify";
 import NotFoundPage from "../pages/404";
 import AdDetail from "../pages/AdDetail";
 import Register from "../pages/Register";
-
 import LoginPage from "../pages/Loginpage";
-
 import SingleUser from "../pages/SingleUser";
 import Messages from "../pages/messages";
 import Packages from "../pages/packages";
@@ -22,6 +19,7 @@ import PrivateRoute from "../components/Private";
 import MainAds from "../pages/MainAds";
 import InquiriesPage from "../pages/Inquiries";
 import MainAdPage from "../pages/Main";
+import DashboardPage from "../pages/dashboardPage";
 // import MainAd from '../components/MainAd';
 
 const Index = () => {
@@ -100,6 +98,15 @@ const Index = () => {
             element={
               <PrivateRoute>
                 <Notifications />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <DashboardPage />
               </PrivateRoute>
             }
           />
