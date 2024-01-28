@@ -9,14 +9,17 @@ import {
 } from "../Redux/slices/action.ads";
 import { Visibility, Edit } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { Table } from "antd";
+import { Table, Skeleton } from "antd";
 const Adverts = () => {
   const [toggle, settoggle] = useState(false);
   const [adimages, setAdimages] = useState();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const getMainAds = async () => {
+    setLoading(true);
     const response = await fetchMainAds();
+    setLoading(false);
     const data = response.data.Data;
     setAdimages(data);
   };
@@ -29,26 +32,35 @@ const Adverts = () => {
     throw new Error("Function not implemented.");
   }
   async function deactivateProduct(advertid: any): Promise<void> {
+    setLoading(true);
     await DeactivateMainad(advertid);
+    setLoading(false);
     getMainAds();
   }
 
   async function activateProduct(advertid: any): Promise<void> {
+    setLoading(true);
     await ActivateMainAd(advertid);
+    setLoading(false);
     getMainAds();
   }
 
   async function restoreProduct(advertid: any): Promise<void> {
+    setLoading(true);
     await RestoreMainAd(advertid);
-    getMainAds();
+    setLoading(false);
   }
 
   async function deleteProduct(advertid: any): Promise<void> {
+    setLoading(true);
     await Deletemainad(advertid);
+    setLoading(false);
     getMainAds();
   }
   async function Suspendproduct(advertid: any): Promise<void> {
+    setLoading(true);
     await Deletemainad(advertid);
+    setLoading(false);
     getMainAds();
   }
 
@@ -171,19 +183,23 @@ const Adverts = () => {
       Adverts
       <div className="flex flex-col">
         <button
-          className="bg-primary-orange  hover:bg-secondary-orange px-4 py-3 rounded  text-white"
+          className="bg-primary-orange hover:bg-secondary-orange px-4 py-3 rounded text-white"
           onClick={() => settoggle(!toggle)}
         >
           Create Main Ad
         </button>
 
         {toggle && <AdvertModal settoggle={settoggle} />}
-        <div className=" mt-4 table-responsive px-[10px] lg:px-0">
-          <Table
-            columns={TableData}
-            dataSource={adimages}
-            className="border rounded-sm"
-          />
+        <div className="mt-4 table-responsive px-[10px] lg:px-0">
+          {loading ? (
+            <Skeleton active paragraph={{ rows: 8 }} />
+          ) : (
+            <Table
+              columns={TableData}
+              dataSource={adimages}
+              className="border rounded-sm"
+            />
+          )}
         </div>
       </div>
     </div>
