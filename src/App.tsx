@@ -1,21 +1,16 @@
 // import React from "react";
-import { BrowserRouter } from 'react-router-dom';
-import Routes from './Routes/Index';
-import Loader from './components/constants/loader';
-import { useSelector } from 'react-redux';
-// import OtherRoutes from "./Routes/routes";
+import { BrowserRouter } from "react-router-dom";
+import Routes from "./Routes/Index";
 
 const App = () => {
-    const { loading } = useSelector((state: any) => state.loaders);
-    return (
-        <div>
-            <BrowserRouter>
-                <Routes />
-                {/* <OtherRoutes /> */}
-            </BrowserRouter>
-            {loading && <Loader />}
-        </div>
-    );
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes />
+        {/* <OtherRoutes /> */}
+      </BrowserRouter>
+    </div>
+  );
 };
 
 export default App;
