@@ -10,7 +10,7 @@ const AdsPage = () => {
       <div>
         <Sidebar />
       </div>
-      <div className="flex-1 p-5 mx-auto">
+      <div className="flex-1 p-5 mx-auto my-body">
         <Ads />
       </div>
     </div>

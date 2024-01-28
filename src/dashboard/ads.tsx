@@ -100,9 +100,9 @@ const AdsDashboard: React.FC = () => {
   ]);
 
   return (
-    <div className=" flex flex-col gap-10">
-      <div className=" ">
-        <Card className="w-full lg:w-1/3">
+    <div className=" flex flex-col mx-auto p-3 w-full overflow-auto gap-10">
+      <div className="">
+        <Card className="w-full lg:w-1/2">
           <Skeleton loading={isLoading} active>
             <div className="flex justify-between w-full">
               <div>
@@ -146,10 +146,9 @@ const AdsDashboard: React.FC = () => {
       </div>
 
       <Card>
-        <Skeleton loading={isLoading} active>
-          <AdsTable Ads={Ads.slice(0, 5)} />
-        </Skeleton>
+        <Skeleton loading={isLoading} active></Skeleton>
       </Card>
+      <AdsTable Ads={Ads.slice(0, 5)} />
     </div>
   );
 };

@@ -100,12 +100,12 @@ const UsersTable: React.FC<UserProps> = ({ users }) => {
   ];
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 table-responsive">
       {isLoading && <Loader />}
       <Table
         columns={TableData}
-        dataSource={users} // Use the imported user data as the data source
-        className="border rounded-[20px]"
+        dataSource={users}
+        className="border rounded-[20px] table-responsive"
       ></Table>
     </div>
   );

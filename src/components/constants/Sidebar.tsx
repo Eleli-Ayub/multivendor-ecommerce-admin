@@ -14,7 +14,7 @@ const Sidebar = () => {
     <div className="h-full  pt-5">
       <div
         className={` ${
-          open ? "w-72" : "w-20 "
+          open ? "w-[15vw]" : "w-20  "
         } bg-dark-purple h-screen p-5  pt-8 relative duration-300 overflow-y-scroll no-scrollbar`}
         style={{
           backgroundColor: "#0a2540",

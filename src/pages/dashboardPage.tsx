@@ -9,11 +9,11 @@ const admin = localStorage.getItem("admin");
 const DashboardPage = () => {
   useEffect(() => {}, [admin]);
   return (
-    <div className="flex pt-20 bg-gray-200 max-w-[100%] overflow-x-auto ">
+    <div className="flex pt-20  bg-gray-200 ">
       <div>
         <Sidebar />
       </div>
-      <div className="flex-1 p-5 mx-auto">
+      <div className="flex-1 lg:p-5 p-[4px] mx-auto my-body  bg-gray-200">
         <AdsDashboard />
         <UsersDashboard />
       </div>

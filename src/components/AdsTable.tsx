@@ -251,7 +251,7 @@ const AdsTable: React.FC<AdFormProps> = ({ Ads }) => {
       <Table
         columns={TableData}
         dataSource={products}
-        className="border rounded-[20px]"
+        className="border rounded-[20px] table-responsive"
       />
     </div>
   );

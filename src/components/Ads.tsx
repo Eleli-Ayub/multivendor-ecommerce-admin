@@ -53,11 +53,11 @@ const Ads = () => {
   ];
 
   return (
-    <div className="flex flex-col mx-auto p-3 w-full overflow-auto">
+    <div className="flex flex-col mx-auto p-3 w-full overflow-x-auto">
       <div className="flex flex-wrap gap-2 lg:flex-nowrap">
         <div className="w-full lg:w-1/2 h-auto">
-          <Skeleton loading={isLoading} active>
-            <Card className="rounded-[20px] shadow-sm bg-white mb-4 h-full">
+          <Card className="rounded-[20px] shadow-sm bg-white mb-4 h-full">
+            <Skeleton loading={isLoading} active>
               <h1 className="text-2xl font-semibold text-center">Ad's Stats</h1>
               <div className="flex flex-col flex-wrap justify-center gap-6 p-5">
                 {stats.map(({ name, data, color }) => (
@@ -74,13 +74,13 @@ const Ads = () => {
                   </div>
                 ))}
               </div>
-            </Card>
-          </Skeleton>
+            </Skeleton>
+          </Card>
         </div>
 
         <div className="w-full lg:w-1/2">
-          <Skeleton loading={isLoading} active>
-            <Card className="rounded-[20px] shadow-sm bg-white h-full">
+          <Card className="rounded-[20px] shadow-sm bg-white h-full">
+            <Skeleton loading={isLoading} active>
               <div className="flex flex-wrap gap-4 p-4">
                 {stats.map(({ name, data, color }) => (
                   <div
@@ -100,15 +100,17 @@ const Ads = () => {
                   </div>
                 ))}
               </div>
-            </Card>
-          </Skeleton>
+            </Skeleton>
+          </Card>
         </div>
       </div>
 
       <div className="mt-4">
-        <Skeleton loading={isLoading} active>
-          <AdsTable Ads={filteredAds} />
-        </Skeleton>
+        <Card>
+          <Skeleton loading={isLoading} active>
+            <AdsTable Ads={filteredAds} />
+          </Skeleton>
+        </Card>
       </div>
     </div>
   );
