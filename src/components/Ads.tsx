@@ -40,11 +40,11 @@ const Ads = () => {
   const declinedPercentage = (declinedAdsCount?.length / ads.length) * 100;
 
   return (
-    <div className="flex flex-col mx-auto p-3 flex-wrap  x-overflow-scroll w-full">
+    <div className="flex flex-col mx-auto p-3 flex-wrap  x-overflow-scroll w-full ">
       {isLoading && <Loader />}
       <div className="flex gap-4 flex-wrap lg:flex-nowrap">
         {/* for the bars */}
-        <Card className="w-full lg:w-[60%] h-auto rounded-[20px] shadow-sm ">
+        <Card className="w-full lg:w-[60%] h-auto rounded-[20px] shadow-sm bg-[#FFFFFF]">
           <h1 className="text-2xl font-semibold text-center">Ad's Stats</h1>
 
           <div className="flex flex-col mx-auto gap-6 max-w-xl px-5y pb-5 mt-5">
