@@ -15,7 +15,7 @@ const DashboardPage = () => {
       </div>
       <div className="flex-1 lg:p-5 p-[4px] mx-auto my-body  bg-gray-200">
         <AdsDashboard />
-        <UsersDashboard />
+        {/* <UsersDashboard /> */}
       </div>
     </div>
   );

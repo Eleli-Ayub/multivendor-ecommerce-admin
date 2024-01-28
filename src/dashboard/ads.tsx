@@ -4,8 +4,11 @@ import { FetchProductsAsync } from "../Redux/slices/AdsSlice";
 import { AppDispatch } from "../Redux/store";
 import { Card, Skeleton } from "antd";
 import "tailwindcss/tailwind.css";
-import Chart from "chart.js/auto";
 import AdsTable from "../components/AdsTable";
+import { ApexOptions } from "apexcharts";
+import { Box, Stack, Typography } from "@mui/material";
+import { ArrowCircleUpRounded } from "@mui/icons-material";
+import ReactApexChart from "react-apexcharts";
 
 const AdsDashboard: React.FC = () => {
   const Ads = useSelector((state: any) => state.AllAds.Ads);
@@ -15,10 +18,28 @@ const AdsDashboard: React.FC = () => {
   const totalAdsCount = ads.length;
   const approvedAdsCount = ads.filter((ad: any) => ad.isapproved).length;
   const pendingAdsCount = ads.filter((ad: any) => !ad.isapproved).length;
-  const declinedAdsCount = ads.filter((ad: any) => !ad.isActive).length;
+  const activeAdsCount = ads.filter((ad: any) => ad.isactive).length;
+  const deactivatedAdsCount = ads.filter((ad: any) => !ad.isactive).length;
   const closedAdsCount = ads.filter((ad: any) => !ad.isactive).length;
 
-  const [, setfilteredAds] = useState(ads);
+  const percentageTotalAds = Math.round((totalAdsCount / totalAdsCount) * 100);
+  const percentageApprovedAds = Math.round(
+    (approvedAdsCount / totalAdsCount) * 100
+  );
+  const percentagePendingAds = Math.round(
+    (pendingAdsCount / totalAdsCount) * 100
+  );
+  const percentageActiveAds = Math.round(
+    (activeAdsCount / totalAdsCount) * 100
+  );
+  const percentageDeactivatedAds = Math.round(
+    (deactivatedAdsCount / totalAdsCount) * 100
+  );
+  const percentageClosedAds = Math.round(
+    (closedAdsCount / totalAdsCount) * 100
+  );
+
+  const [, setFilteredAds] = useState(ads);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -26,129 +47,131 @@ const AdsDashboard: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setfilteredAds(ads);
+    setFilteredAds(ads);
   }, [ads]);
 
-  const totalPercentage = (totalAdsCount / ads?.length) * 100;
-  const approvedPercentage = (approvedAdsCount / ads?.length) * 100;
-  const pendingPercentage = (pendingAdsCount / ads?.length) * 100;
-  const closedPercentage = (closedAdsCount / ads?.length) * 100;
-  const declinedPercentage = (declinedAdsCount / ads?.length) * 100;
+  const TotalRevenueSeries = [
+    {
+      data: [
+        percentageTotalAds,
+        percentageApprovedAds,
+        percentagePendingAds,
+        percentageActiveAds,
+        percentageDeactivatedAds,
+        percentageClosedAds,
+      ],
+    },
+  ];
 
-  useEffect(() => {
-    const ctx = document.getElementById("barChart") as HTMLCanvasElement;
-
-    if (ctx) {
-      // Clear the existing canvas
-      const context = ctx.getContext("2d");
-
-      if (context) {
-        context.clearRect(0, 0, ctx.width, ctx.height);
-      }
-
-      new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: ["Total", "Approved", "Pending", "Closed", "Declined"],
-          datasets: [
-            {
-              label: "Ads Overview",
-              backgroundColor: [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(75, 192, 192, 0.2)",
-                "rgba(255, 205, 86, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(153, 102, 255, 0.2)",
-              ],
-              borderColor: [
-                "rgba(255, 99, 132, 1)",
-                "rgba(75, 192, 192, 1)",
-                "rgba(255, 205, 86, 1)",
-                "rgba(54, 162, 235, 1)",
-                "rgba(153, 102, 255, 1)",
-              ],
-              borderWidth: 1,
-              data: [
-                totalPercentage,
-                approvedPercentage,
-                pendingPercentage,
-                closedPercentage,
-                declinedPercentage,
-              ],
-            },
-          ],
+  const TotalRevenueOptions: ApexOptions = {
+    chart: {
+      type: "bar",
+      toolbar: {
+        show: false,
+      },
+    },
+    colors: ["#475BE8", "#CFC8FF"],
+    plotOptions: {
+      bar: {
+        borderRadius: 4,
+        horizontal: false,
+        columnWidth: "55%",
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    grid: {
+      show: false,
+    },
+    stroke: {
+      colors: ["transparent"],
+      width: 4,
+    },
+    xaxis: {
+      categories: [
+        "total",
+        "Approved",
+        "Pending",
+        "closed",
+        "active",
+        "deactivated",
+      ],
+    },
+    yaxis: {
+      title: {
+        text: "Ads Percentage",
+      },
+      max: 100,
+    },
+    fill: {
+      opacity: 1,
+    },
+    legend: {
+      position: "top",
+      horizontalAlign: "right",
+    },
+    tooltip: {
+      y: {
+        formatter(val: number) {
+          return ` ${val}%`;
         },
-        options: {
-          scales: {
-            x: {
-              type: "category",
-              position: "bottom",
-            },
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
-    }
-  }, [
-    totalPercentage,
-    approvedPercentage,
-    pendingPercentage,
-    closedPercentage,
-    declinedPercentage,
-  ]);
+      },
+    },
+  };
 
   return (
-    <div className=" flex flex-col mx-auto p-3 w-full overflow-auto gap-10">
+    <div className="flex flex-col mx-auto px-3 w-full overflow-auto gap-10">
       <div className="">
         <Card className="w-full lg:w-1/2">
           <Skeleton loading={isLoading} active>
-            <div className="flex justify-between w-full">
+            <div className="w-full">
               <div>
-                <p className="text-sm text-gray-500 line-clamp-1">
-                  Total Ads: {totalAdsCount}
-                </p>
-                <p className="text-sm text-gray-500 line-clamp-1">
-                  Approved Ads: {approvedAdsCount}
-                </p>
-                <p className="text-sm text-gray-500 line-clamp-1">
-                  Pending Ads: {pendingAdsCount}
-                </p>
-                <p className="text-sm text-gray-500 line-clamp-1">
-                  Closed Ads: {closedAdsCount}
-                </p>
-                <p className="text-sm text-gray-500 line-clamp-1">
-                  Declined Ads: {declinedAdsCount}
-                </p>
-              </div>
-              <div
-                style={{ position: "relative", width: "100%", height: "400px" }}
-              >
-                {isLoading ? (
-                  <p>Loading...</p>
-                ) : ads.length > 0 ? (
-                  <canvas
-                    id="barChart"
-                    style={{
-                      position: "absolute",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  ></canvas>
-                ) : (
-                  <p>No data available for the chart.</p>
-                )}
+                <Box
+                  p={2}
+                  flex={1}
+                  id="chart"
+                  display={"flex"}
+                  flexDirection="column"
+                  borderRadius={"15px"}
+                  bgcolor="#fcfcfc"
+                >
+                  <Typography fontWeight={400} color="#11142">
+                    Total Ads
+                  </Typography>
+                  <Stack my={"20px"} direction="row" gap={4} flexWrap="wrap">
+                    <Typography fontWeight={700} fontSize="28px" color="#222">
+                      {totalAdsCount}
+                    </Typography>
+                    <Stack direction={"row"} alignItems="center" gap={1}>
+                      <ArrowCircleUpRounded
+                        sx={{
+                          fontSize: 25,
+                          color: "#4754be8",
+                        }}
+                      />
+                      <Stack></Stack>
+                    </Stack>
+                  </Stack>
+                  <ReactApexChart
+                    series={TotalRevenueSeries}
+                    type="bar"
+                    height="200px"
+                    options={TotalRevenueOptions}
+                  />
+                </Box>
               </div>
             </div>
           </Skeleton>
         </Card>
       </div>
 
-      <Card>
-        <Skeleton loading={isLoading} active></Skeleton>
+      <Card className="w-full lg:w-1/2">
+        <h1 className="capitalize font-semibold text-center">Recent ads</h1>
+        <Skeleton loading={isLoading} active>
+          <AdsTable Ads={Ads.slice(0, 3)} />
+        </Skeleton>
       </Card>
-      <AdsTable Ads={Ads.slice(0, 5)} />
     </div>
   );
 };
