@@ -42,7 +42,7 @@ const Ads = () => {
     <div className="flex flex-col mx-auto p-3 flex-wrap  x-overflow-scroll w-full ">
       <div className="flex gap-4 flex-wrap lg:flex-nowrap">
         {/* for the bars */}
-        <Skeleton loading={isLoading}>
+        <Skeleton loading={isLoading} active paragraph={{ rows: 1 }}>
           <Card className="w-full lg:w-[60%] h-auto rounded-[20px] shadow-sm bg-[#FFFFFF]">
             <h1 className="text-2xl font-semibold text-center">Ad's Stats</h1>
 
@@ -109,7 +109,7 @@ const Ads = () => {
             </div>
           </Card>
         </Skeleton>
-        <Skeleton loading={isLoading}>
+        <Skeleton loading={isLoading} active paragraph={{ rows: 1 }}>
           <Card className="rounded-[20px] shadow-sm bg-white">
             <div className="flex gap-5 flex-wrap items-center justify-center lg:justify-normal ">
               {/* Total Ads */}
@@ -200,7 +200,9 @@ const Ads = () => {
           {/* List of ads goes here */}
         </div>
         <div>
-          <AdsTable Ads={filteredAds} />
+          <Skeleton loading={isLoading} active>
+            <AdsTable Ads={filteredAds} />
+          </Skeleton>
         </div>
       </div>
       {/* end of second placeholder */}
