@@ -119,6 +119,17 @@ const AdsTable: React.FC<AdFormProps> = ({ Ads }) => {
     {
       title: "Name",
       dataIndex: "productname",
+      render: (text: string) => (
+        <div
+          style={{
+            maxHeight: "50px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {text}
+        </div>
+      ),
     },
     {
       title: "Status",

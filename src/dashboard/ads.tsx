@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FetchProductsAsync } from "../Redux/slices/AdsSlice";
 import { AppDispatch } from "../Redux/store";
-import { Card, Skeleton } from "antd";
+import { Card, List, Skeleton } from "antd";
 import "tailwindcss/tailwind.css";
 import AdsTable from "../components/AdsTable";
 import { ApexOptions } from "apexcharts";
 import { Box, Stack, Typography } from "@mui/material";
 import { ArrowCircleUpRounded } from "@mui/icons-material";
 import ReactApexChart from "react-apexcharts";
+import PieChart from "../components/Global/pie";
 
 const AdsDashboard: React.FC = () => {
   const Ads = useSelector((state: any) => state.AllAds.Ads);
@@ -122,7 +123,7 @@ const AdsDashboard: React.FC = () => {
 
   return (
     <div className="flex flex-col mx-auto px-3 w-full overflow-auto gap-10">
-      <div className="">
+      <div className="flex gap-2">
         <Card className="w-full lg:w-1/2">
           <Skeleton loading={isLoading} active>
             <div className="w-full">
@@ -164,14 +165,74 @@ const AdsDashboard: React.FC = () => {
             </div>
           </Skeleton>
         </Card>
+
+        <Card className="w-full lg:w-1/2">
+          <Skeleton loading={isLoading} active>
+            <Box>
+              <Typography fontSize={"25"} fontWeight={700} color="#11142d">
+                Ads Overview
+              </Typography>
+              <Box mt="20px" display={"flex"} flexWrap="wrap" gap={4}>
+                <PieChart
+                  title="Approved Ads"
+                  value={approvedAdsCount}
+                  series={[percentageApprovedAds, 100 - percentageApprovedAds]}
+                  colors={["#475be8", "#e4e8ef"]}
+                />
+
+                <PieChart
+                  title="Pending Ads"
+                  value={pendingAdsCount}
+                  series={[percentagePendingAds, 100 - percentagePendingAds]}
+                  colors={["#475be8", "#e4e8ef"]}
+                />
+                <PieChart
+                  title="Declined Ads"
+                  value={closedAdsCount}
+                  series={[percentageClosedAds, 100 - percentageClosedAds]}
+                  colors={["#276be8", "#e7e6ef"]}
+                />
+                <PieChart
+                  title="Active Ads"
+                  value={activeAdsCount}
+                  series={[percentageActiveAds, 100 - percentageActiveAds]}
+                  colors={["#475be8", "#e4e8ef"]}
+                />
+              </Box>
+            </Box>
+          </Skeleton>
+        </Card>
       </div>
 
-      <Card className="w-full lg:w-1/2">
-        <h1 className="capitalize font-semibold text-center">Recent ads</h1>
-        <Skeleton loading={isLoading} active>
-          <AdsTable Ads={Ads.slice(0, 3)} />
-        </Skeleton>
-      </Card>
+      <div className="flex gap-2">
+        <Card className="w-full lg:w-1/2 h-[300px] overflow-y-auto no-scrollbar">
+          <h1 className="capitalize font-semibold text-center">Recent ads</h1>
+          <Skeleton loading={isLoading} active>
+            <AdsTable Ads={Ads.slice(0, 3)} />
+          </Skeleton>
+        </Card>
+        <Card className="w-full lg:w-1/2 h-[300px] overflow-y-auto no-scrollbar ">
+          <h1 className="capitalize font-semibold text-center">
+            Recent Premium Ads
+          </h1>
+          <Skeleton loading={isLoading} active>
+            <div className="w-full flex flex-col gap-2">
+              {ads.map((ad: any) => (
+                <div className=" bg-white gap-2 w-full h-[100px] rounded-[8px] shadow-lg flex items-center">
+                  <img
+                    src={ad?.mainimage}
+                    alt=""
+                    className="w-1/3 h-full object-cover object-top "
+                  />
+                  <p className="text-base font-semibold line-clamp-1">
+                    {ad?.productname}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Skeleton>
+        </Card>
+      </div>
     </div>
   );
 };

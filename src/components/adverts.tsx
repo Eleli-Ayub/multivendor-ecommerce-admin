@@ -9,7 +9,7 @@ import {
 } from "../Redux/slices/action.ads";
 import { Visibility, Edit } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { Table, Skeleton } from "antd";
+import { Table, Skeleton, Card } from "antd";
 const Adverts = () => {
   const [toggle, settoggle] = useState(false);
   const [adimages, setAdimages] = useState();
@@ -179,30 +179,32 @@ const Adverts = () => {
     },
   ];
   return (
-    <div>
-      Adverts
-      <div className="flex flex-col">
-        <button
-          className="bg-primary-orange hover:bg-secondary-orange px-4 py-3 rounded text-white"
-          onClick={() => settoggle(!toggle)}
-        >
-          Create Main Ad
-        </button>
+    <Card>
+      <div>
+        <h2 className="text-base font-semibold text-center"> Adverts</h2>
+        <div className="flex flex-col">
+          <button
+            className="bg-primary-orange w-[200px] hover:bg-secondary-orange px-4 py-3 rounded text-white"
+            onClick={() => settoggle(!toggle)}
+          >
+            Create Main Ad
+          </button>
 
-        {toggle && <AdvertModal settoggle={settoggle} />}
-        <div className="mt-4 table-responsive px-[10px] lg:px-0">
-          {loading ? (
-            <Skeleton active paragraph={{ rows: 8 }} />
-          ) : (
-            <Table
-              columns={TableData}
-              dataSource={adimages}
-              className="border rounded-sm"
-            />
-          )}
+          {toggle && <AdvertModal settoggle={settoggle} />}
+          <div className="mt-4 table-responsive px-[10px] lg:px-0">
+            {loading ? (
+              <Skeleton active paragraph={{ rows: 4 }} />
+            ) : (
+              <Table
+                columns={TableData}
+                dataSource={adimages}
+                className="border rounded-sm"
+              />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
