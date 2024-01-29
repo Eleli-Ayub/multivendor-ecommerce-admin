@@ -119,8 +119,8 @@ const UsersDashboard: React.FC = () => {
 
     return (
         <div className="flex flex-col mx-auto px-3 w-full overflow-auto gap-10  mt-10">
-            <div className="flex gap-2">
-                <Card className="w-full lg:w-1/2">
+            <div className="flex gap-2 flex-wrap lg:flex-nowrap">
+                <Card className="w-full lg:w-1/2 flex-wrap lg:flex-nowrap">
                     <Skeleton loading={isLoading} active>
                         <div className="w-full">
                             <div>
@@ -162,7 +162,7 @@ const UsersDashboard: React.FC = () => {
                     </Skeleton>
                 </Card>
 
-                <Card className="w-full lg:w-1/2 h-[400px] overflow-y-auto no-scrollbar ">
+                <Card className="w-full lg:w-1/2  h-[400px] overflow-y-auto no-scrollbar ">
                     <h1 className="capitalize font-semibold text-center">Recent Premium Ads</h1>
                     <Skeleton loading={isLoading} active>
                         <div className="w-full flex flex-col gap-2">
