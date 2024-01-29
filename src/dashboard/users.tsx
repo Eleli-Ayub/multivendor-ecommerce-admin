@@ -6,7 +6,7 @@ import { Card, Skeleton } from 'antd';
 import { Box, Stack, Typography } from '@mui/material';
 import { ArrowCircleUpRounded } from '@mui/icons-material';
 import ReactApexChart from 'react-apexcharts';
-import PieChart from '../components/Global/pie';
+// import PieChart from '../components/Global/pie';
 import { ApexOptions } from 'apexcharts';
 
 const UsersDashboard: React.FC = () => {

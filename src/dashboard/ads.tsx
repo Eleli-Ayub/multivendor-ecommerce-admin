@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FetchProductsAsync } from '../Redux/slices/AdsSlice';
 import { AppDispatch } from '../Redux/store';
-import { Card, List, Skeleton } from 'antd';
+import { Card, Skeleton } from 'antd';
 import 'tailwindcss/tailwind.css';
 import AdsTable from '../components/AdsTable';
 import { ApexOptions } from 'apexcharts';
