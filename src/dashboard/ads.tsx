@@ -197,13 +197,13 @@ const AdsDashboard: React.FC = () => {
                 <Card className="w-full lg:w-1/2 h-[300px] overflow-y-auto no-scrollbar ">
                     <h1 className="capitalize font-semibold text-center">Recent Premium Ads</h1>
                     <Skeleton loading={isLoading} active>
-                        <div className="w-full flex flex-col gap-2">
+                        <div className="w-full flex flex-col gap-2 p-[5px]">
                             {ads.map((ad: any) => (
-                                <div className=" bg-white gap-2 w-full h-[100px] rounded-[8px] shadow-lg flex items-center">
+                                <div className=" bg-white gap-2 w-full h-[100px] rounded-[8px] price flex items-center">
                                     <img
                                         src={ad?.mainimage}
                                         alt=""
-                                        className="w-1/3 h-full object-cover object-top "
+                                        className="w-1/3 h-[98%] object-cover object-top  rounded-[8px]"
                                     />
                                     <p className="text-base font-semibold line-clamp-1">
                                         {ad?.productname}

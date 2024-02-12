@@ -167,11 +167,11 @@ const UsersDashboard: React.FC = () => {
                     <Skeleton loading={isLoading} active>
                         <div className="w-full flex flex-col gap-2">
                             {users?.map((user: any) => (
-                                <div className=" bg-white gap-2 w-full h-[100px] rounded-[8px] shadow-lg flex items-center">
+                                <div className=" bg-white gap-2 w-full h-[100px] rounded-[8px] price p-[5px] flex items-center">
                                     <img
                                         src={user?.userimage}
                                         alt=""
-                                        className="w-[100px] h-[100px] rounded-full border border-primary-orange object-cover object-top "
+                                        className="w-[90px] h-[90px] rounded-full border border-primary-orange object-cover object-top "
                                     />
                                     <p className="text-base font-semibold line-clamp-1">
                                         {user?.firstname} {user?.lastname}
