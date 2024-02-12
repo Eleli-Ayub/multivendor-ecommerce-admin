@@ -4,7 +4,7 @@ import Routes from './Routes/Index';
 const App = () => {
     return (
         <div>
-            <BrowserRouter>
+            <BrowserRouter basename={'/admin'}>
                 <Routes />
             </BrowserRouter>
         </div>
