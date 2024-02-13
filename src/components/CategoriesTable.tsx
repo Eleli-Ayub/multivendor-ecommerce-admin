@@ -49,8 +49,8 @@ const CategoryTable: React.FC<AdFormProps> = ({ categories, subcategoryCounts, g
         {
             title: 'Actions',
             dataIndex: 'action',
-            render: (text: any, record: any) => {
-                console.log(record, text);
+            render: (_text: any, record: any) => {
+                // console.log(record, text);
                 return (
                     <div className="flex mr-2 gap-3">
                         <Visibility

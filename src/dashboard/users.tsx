@@ -14,18 +14,18 @@ const UsersDashboard: React.FC = () => {
     const isLoading = useSelector((state: any) => state.auth.isLoading);
 
     const siteUsers = users || [];
-    const totalUsersCount = siteUsers.length;
-    const approvedUsersCount = siteUsers.filter((user: any) => user.isapproved).length;
-    const pendingUsersCount = siteUsers.filter((user: any) => !user.isapproved).length;
+    const totalUsersCount = siteUsers?.length;
+    const approvedUsersCount = siteUsers.filter((user: any) => user.isapproved)?.length;
+    const pendingUsersCount = siteUsers.filter((user: any) => !user.isapproved)?.length;
     const basicPlanUsersCount = siteUsers.filter(
         (user: any) => user.packagetype === 'basic'
-    ).length;
+    )?.length;
     const standardPlanUsersCount = siteUsers.filter(
         (user: any) => user.packagetype === 'standard'
-    ).length;
+    )?.length;
     const premiumPlanUsersCount = siteUsers.filter(
         (user: any) => user.packagetype === 'premium'
-    ).length;
+    )?.length;
 
     const percentageTotalUsers = Math.round((totalUsersCount / totalUsersCount) * 100);
     const percentageApprovedUsers = Math.round((approvedUsersCount / totalUsersCount) * 100);

@@ -16,12 +16,12 @@ const AdsDashboard: React.FC = () => {
     const isLoading = useSelector((state: any) => state.AllAds.isLoading);
 
     const ads = Ads || [];
-    const totalAdsCount = ads.length;
-    const approvedAdsCount = ads.filter((ad: any) => ad.isapproved).length;
-    const pendingAdsCount = ads.filter((ad: any) => !ad.isapproved).length;
-    const activeAdsCount = ads.filter((ad: any) => ad.isactive).length;
-    const deactivatedAdsCount = ads.filter((ad: any) => !ad.isactive).length;
-    const closedAdsCount = ads.filter((ad: any) => !ad.isactive).length;
+    const totalAdsCount = ads?.length;
+    const approvedAdsCount = ads?.filter((ad: any) => ad.isapproved)?.length;
+    const pendingAdsCount = ads?.filter((ad: any) => !ad.isapproved)?.length;
+    const activeAdsCount = ads?.filter((ad: any) => ad.isactive)?.length;
+    const deactivatedAdsCount = ads?.filter((ad: any) => !ad.isactive)?.length;
+    const closedAdsCount = ads?.filter((ad: any) => !ad.isactive)?.length;
 
     const percentageTotalAds = Math.round((totalAdsCount / totalAdsCount) * 100);
     const percentageApprovedAds = Math.round((approvedAdsCount / totalAdsCount) * 100);
