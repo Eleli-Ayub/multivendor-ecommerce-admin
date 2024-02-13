@@ -31,7 +31,7 @@ const ProductInfo = () => {
         try {
             dispatch(setLoader(true));
             const response = await getSingleProduct(id);
-            console.log(response);
+            // console.log(response);
             dispatch(setLoader(false));
             toast.success(response.message);
             setProduct(response.productdata);
