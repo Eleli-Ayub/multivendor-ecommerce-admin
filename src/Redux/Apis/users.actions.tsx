@@ -23,7 +23,7 @@ import { axiosService } from '../helpers/axios';
 export const RegisterUser = async (payload: any): Promise<any> => {
     try {
         const response = await axiosService.post('/user/auth/signup', payload);
-        localStorage.setItem('userToken', response.data.token);
+        localStorage.setItem('adminToken', response.data.token);
         return response;
     } catch (error: any) {
         console.log(error);
@@ -35,7 +35,7 @@ export const RegisterUser = async (payload: any): Promise<any> => {
 export const LoginUser = async (payload: any): Promise<any> => {
     try {
         const response = await axiosService.post('/user/auth/signin', payload);
-        localStorage.setItem('userToken', response.data.token);
+        localStorage.setItem('adminToken', response.data.token);
         return response;
     } catch (error: any) {
         console.log(error, 'a terrible error occurred');
