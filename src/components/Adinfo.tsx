@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
-import { ProductData } from '../interface/common';
+import { ProductData, SellerProps } from '../interface/common';
 import { getSingleProduct } from '../Redux/Apis/ads.actions';
-import { Facebook, Favorite, Phone, Reviews, WhatsApp, YouTube } from '@mui/icons-material';
+import { Favorite, Reviews } from '@mui/icons-material';
 import { Avatar } from 'antd';
 import { Rating } from '@mui/material';
 import { setLoader } from '../Redux/slices/Loaderslice';
@@ -22,6 +22,7 @@ const ProductInfo = () => {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const [product, setProduct] = useState<ProductData | null>(null);
     const [productImages, setProductImages] = useState<any[]>([]);
+    const [seller, setSeller] = useState<SellerProps | null>(null);
 
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -30,10 +31,12 @@ const ProductInfo = () => {
         try {
             dispatch(setLoader(true));
             const response = await getSingleProduct(id);
+            console.log(response);
             dispatch(setLoader(false));
             toast.success(response.message);
             setProduct(response.productdata);
             setProductImages(response.images);
+            setSeller(response.seller_details);
         } catch (error: any) {
             toast.error(error);
             dispatch(setLoader(false));
@@ -68,7 +71,9 @@ const ProductInfo = () => {
                             <div className="flex flex-col gap-4">
                                 <div style={{ height: '400px' }} className="">
                                     <img
-                                        src={` ${productImages[selectedImageIndex]}`}
+                                        src={`${
+                                            productImages && productImages[selectedImageIndex]
+                                        }`}
                                         className=" rounded-xl w-full max-h-full  object-cover object-center"
                                         alt=""
                                         style={{ height: '100%' }}
@@ -131,40 +136,37 @@ const ProductInfo = () => {
                     </div>
                 </div>
 
-                <div className="md-flex-1 p-4 ">
-                    <div className="mt-2 rounded" style={{ height: 'auto' }}>
-                        <div className="">
-                            <div className="bg-neutral-200 p-6 rounded shadow-custom w-full">
-                                <h1 className="center">Posted by:</h1>
-                                <div className="flex gap-4">
-                                    <div>
-                                        <Avatar className="h-24 w-24" />
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <p>Name: Jane Doe</p>
-                                            <p>Phone: 0791088884</p>
-                                            <p>Email: janedoe@gmail.com</p>
-                                            <button className="bg-black-200 text-white px-10 py-2 mt-4 rounded hover:text-black-200 hover-bg-white transition-colors delay-300">
+                <div className="md-flex-1 p-4 bg-white price h-auto text-center   ">
+                    <div className="">
+                        <div className="text-center">
+                            <Avatar src={` ${seller?.user_profile}`} className="h-24 w-24 " />
+                        </div>
+                        <div>
+                            <div className="text-gray-600 ">
+                                <p className="capitalize text-center">
+                                    Name: {seller?.seller_name}
+                                    {/* Name: John Doe */}
+                                </p>
+                                <p className="text-center">
+                                    location:{seller?.seller_location} {/* Phone : 0791055992 */}
+                                </p>
+                                <p className="text-center">
+                                    Phone:{seller?.seller_phonenumber} {/* Phone : 0791055992 */}
+                                </p>
+                                <p className="text-center">Email:{seller?.seller_email} </p>
+                                {/* <p className="text-center">Email:janedoe@gmail.com </p> */}
+                                {/* <div className="text-center p-2">
+                                            <button
+                                                className="bg-black-200 text-white px-10 py-2 mt-4 rounded hover:text-black-200 hover:bg-white transition-colors delay-300"
+                                                onClick={() =>
+                                                    navigate(`/seller/store/${ad.userid}`, {
+                                                        state: { user: seller },
+                                                    })
+                                                }
+                                            >
                                                 View Shop
                                             </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex gap-3 mt-4">
-                                    <button className="p-2 rounded-full bg-gray-200">
-                                        <WhatsApp className="text-green-500" />
-                                    </button>
-                                    <button className="p-2 rounded-full bg-gray-200">
-                                        <Facebook className="text-blue-500" />
-                                    </button>
-                                    <button className="p-2 rounded-full bg-gray-200">
-                                        <YouTube className="text-red-500" />
-                                    </button>
-                                    <button className="p-2 rounded-full bg-gray-200">
-                                        <Phone />
-                                    </button>
-                                </div>
+                                        </div> */}
                             </div>
                         </div>
                     </div>

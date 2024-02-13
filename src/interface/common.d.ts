@@ -40,3 +40,13 @@ export interface userProps {
 export interface adminProps {
   adminname:string
 }
+
+
+export interface SellerProps {
+  seller_name: string;
+  seller_email: string;
+ user_profile: string;
+ seller_phonenumber: string;
+ seller_location: string;
+
+}
