@@ -1,4 +1,4 @@
-import { Close, Delete, Edit, Visibility } from '@mui/icons-material';
+import { Close, Delete, Edit } from '@mui/icons-material';
 import { Table } from 'antd';
 import { useState } from 'react';
 import EditSubcategoryForm from './EditSubcategories';
@@ -41,12 +41,12 @@ const ListSubcategories: React.FC<AppProps> = ({
             render: (_text: any, record: any) => {
                 return (
                     <div className="flex mr-2 gap-3">
-                        <Visibility
+                        {/* <Visibility
                             className="text-primary-orange  "
                             onClick={() => {
                                 console.log('clicked categoriers');
                             }}
-                        />
+                        /> */}
                         <Edit
                             className="text-green-500 "
                             onClick={() => {

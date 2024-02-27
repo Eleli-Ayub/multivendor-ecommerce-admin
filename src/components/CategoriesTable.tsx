@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ListSubcategories from './ListSubcategories';
+import EditCategoryForm from './EditCategoryForm';
 
 type AdFormProps = {
     categories: any;
@@ -18,7 +19,9 @@ const CategoryTable: React.FC<AdFormProps> = ({ categories, subcategoryCounts, g
     const [mySubCategories, setMySubCategories] = useState(false);
     const [subcategories, setSubCategories] = useState();
     const [categoryName, setCategoryName] = useState();
-    const navigate = useNavigate();
+    const [isEditing, setIsEditing] = useState(false);
+    const [selectedId, setSelectedId] = useState();
+    // const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -66,7 +69,10 @@ const CategoryTable: React.FC<AdFormProps> = ({ categories, subcategoryCounts, g
                         <Edit
                             className="text-green-500 "
                             onClick={() => {
-                                navigate(`/categories/${record?.categoryid}`);
+                                // navigate(`/categories/${record?.categoryid}`);
+                                setIsEditing(true);
+                                setSelectedId(record?.categoryid);
+                                setCategoryName(record?.categoryname);
                             }}
                         />
                         <Delete
@@ -92,6 +98,16 @@ const CategoryTable: React.FC<AdFormProps> = ({ categories, subcategoryCounts, g
                     <ListSubcategories
                         subcategories={subcategories}
                         setMySubCategories={setMySubCategories}
+                        categoryName={categoryName}
+                    />
+                </div>
+            )}
+
+            {isEditing && (
+                <div>
+                    <EditCategoryForm
+                        id={selectedId}
+                        setIsEditing={setIsEditing}
                         categoryName={categoryName}
                     />
                 </div>
