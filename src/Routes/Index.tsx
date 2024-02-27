@@ -20,6 +20,8 @@ import MainAds from '../pages/MainAds';
 import InquiriesPage from '../pages/Inquiries';
 import MainAdPage from '../pages/Main';
 import DashboardPage from '../pages/dashboardPage';
+import EditSubcategoryPage from '../pages/EditSubcategories';
+import EditCategoryPage from '../pages/EditCategoryPage';
 // import MainAd from '../components/MainAd';
 
 const Index = () => {
@@ -59,7 +61,6 @@ const Index = () => {
                             </PrivateRoute>
                         }
                     />
-
                     <Route
                         path="/main_ads"
                         element={
@@ -68,7 +69,6 @@ const Index = () => {
                             </PrivateRoute>
                         }
                     />
-
                     <Route
                         path="/categories"
                         element={
@@ -82,6 +82,22 @@ const Index = () => {
                         element={
                             <PrivateRoute>
                                 <NewCategory />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/subcategories/:id"
+                        element={
+                            <PrivateRoute>
+                                <EditSubcategoryPage />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/categories/:id"
+                        element={
+                            <PrivateRoute>
+                                <EditCategoryPage />
                             </PrivateRoute>
                         }
                     />
@@ -101,7 +117,7 @@ const Index = () => {
                             </PrivateRoute>
                         }
                     />
-
+                    NewCategory
                     <Route
                         path="/"
                         element={

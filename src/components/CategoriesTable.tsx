@@ -5,21 +5,22 @@ import { useDispatch } from 'react-redux';
 import { setLoader } from '../Redux/slices/Loaderslice';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import ListSubcategories from './ListSubcategories';
 
 type AdFormProps = {
     categories: any;
     subcategoryCounts: any;
-    getcategories: any;
+    getcategories: () => Promise<void>;
 };
 
 const CategoryTable: React.FC<AdFormProps> = ({ categories, subcategoryCounts, getcategories }) => {
-    // const [myCategories, setMyCategories] = useState();
+    const [mySubCategories, setMySubCategories] = useState(false);
+    const [subcategories, setSubCategories] = useState();
+    const [categoryName, setCategoryName] = useState();
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-
-    //delete single category function
 
     const deleteThisCategory = async (categoryName: string) => {
         try {
@@ -34,7 +35,7 @@ const CategoryTable: React.FC<AdFormProps> = ({ categories, subcategoryCounts, g
         }
     };
 
-    useEffect(() => {}, [subcategoryCounts]);
+    useEffect(() => {}, []);
 
     const columns = [
         {
@@ -56,13 +57,16 @@ const CategoryTable: React.FC<AdFormProps> = ({ categories, subcategoryCounts, g
                         <Visibility
                             className="text-primary-orange  "
                             onClick={() => {
-                                navigate('/new-subcategory');
+                                setMySubCategories(true);
+                                setSubCategories(record?.subCategories);
+                                setCategoryName(record?.categoryname);
+                                // console.log('clicked categories', subcategories);
                             }}
                         />
                         <Edit
                             className="text-green-500 "
                             onClick={() => {
-                                navigate('/new-subcategory');
+                                navigate(`/categories/${record?.categoryid}`);
                             }}
                         />
                         <Delete
@@ -78,8 +82,20 @@ const CategoryTable: React.FC<AdFormProps> = ({ categories, subcategoryCounts, g
     ];
 
     return (
-        <div className="mt-4">
-            <Table columns={columns} dataSource={categories} className="border rounded-sm" />
+        <div>
+            <div className="mt-4">
+                <Table columns={columns} dataSource={categories} className="border rounded-sm" />
+            </div>
+
+            {mySubCategories && (
+                <div>
+                    <ListSubcategories
+                        subcategories={subcategories}
+                        setMySubCategories={setMySubCategories}
+                        categoryName={categoryName}
+                    />
+                </div>
+            )}
         </div>
     );
 };

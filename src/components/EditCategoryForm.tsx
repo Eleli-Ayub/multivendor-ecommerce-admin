@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import { createCategory } from '../Redux/Apis/category.actions';
+import { EditCategory } from '../Redux/Apis/category.actions';
+import { Link, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-const CategoryForm: React.FC = () => {
+const EditCategoryForm: React.FC = () => {
+    const { id } = useParams();
     const [formData, setFormData] = useState({
         categoryname: '',
         categoryimage: '',
+        categoryid: id,
     });
 
     const resetForm = () => {
         setFormData({
             categoryname: '',
             categoryimage: '',
+            categoryid: id,
         });
     };
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -22,7 +27,12 @@ const CategoryForm: React.FC = () => {
         e.preventDefault();
 
         try {
-            const response = await createCategory(formData);
+            const response = await EditCategory(formData);
+            if (response.data.Success) {
+                toast.success('Category updated Successfuly');
+            } else {
+                toast.error(response.data.Error);
+            }
             console.log(response);
             console.log('Success');
         } catch (error) {
@@ -35,7 +45,7 @@ const CategoryForm: React.FC = () => {
     return (
         <div className="flex justify-center h-screen bg-white py-10">
             <div className="bg-white h-96 p-8 rounded-lg shadow-md w-full max-w-md">
-                <h2 className="text-2xl font-semibold mb-4">Create Category</h2>
+                <h2 className="text-2xl font-semibold mb-4">Edit Category</h2>
                 <form onSubmit={handleSubmit} className="h-72">
                     <div className="mb-4">
                         <label
@@ -73,18 +83,21 @@ const CategoryForm: React.FC = () => {
                             // required
                         />
                     </div>
-                    <div className="flex justify-center mt-6">
+                    <div className="flex justify-center mt-10">
                         <button
                             type="submit"
                             className="bg-primary-orange px-4 py-2 text-white rounded-xl w-full hover:bg-secondary-orange focus:outline-none"
                         >
-                            Create Category
+                            Submit
                         </button>
                     </div>
+                    <Link to="/categories" className="mt-10 text-center text-blue-200 underline">
+                        Back to cartegories
+                    </Link>
                 </form>
             </div>
         </div>
     );
 };
 
-export default CategoryForm;
+export default EditCategoryForm;
