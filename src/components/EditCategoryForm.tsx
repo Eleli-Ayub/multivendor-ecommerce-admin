@@ -32,7 +32,7 @@ const EditCategoryForm: React.FC<AppProps> = ({ id, setIsEditing, categoryName }
         try {
             const response = await EditCategory(formData);
             if (response.data.Success) {
-                toast.success('Category updated Successfuly');
+                toast.success('Category updated Successfully');
             } else {
                 toast.error(response.data.Error);
             }
