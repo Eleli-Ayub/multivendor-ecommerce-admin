@@ -168,7 +168,14 @@ const Index = () => {
                         }
                     />
                     <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route
+                        path="/register"
+                        element={
+                            <PrivateRoute>
+                                <Register />
+                            </PrivateRoute>
+                        }
+                    />
                 </Routes>
             </div>
             <ToastContainer position="top-center" />
