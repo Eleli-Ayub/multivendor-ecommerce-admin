@@ -11,16 +11,14 @@
   /* font-family: "Roboto Slab", serif; */
 }
 
-
 #root {
   display: flex;
   flex-direction: column;
   min-height: 80vh;
-
 }
 
-.my-cover{
-  height: 100vh!important;
+.my-cover {
+  height: 100vh !important;
 }
 
 .logo {
@@ -69,7 +67,7 @@
     margin-bottom: 20px;
   }
 }
-.loader-index{
+.loader-index {
   z-index: 100;
 }
 .loader {
@@ -84,8 +82,8 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: radial-gradient(9px at bottom right, #0000 94%, currentColor) top
-      left,
+  background:
+    radial-gradient(9px at bottom right, #0000 94%, currentColor) top left,
     radial-gradient(9px at bottom left, #0000 94%, currentColor) top right,
     radial-gradient(9px at top right, #0000 94%, currentColor) bottom left,
     radial-gradient(9px at top left, #0000 94%, currentColor) bottom right;
@@ -156,8 +154,9 @@ h2 {
   margin-bottom: 20px;
 }
 
-.table-card , table {
-  width: 100%!important;
+.table-card,
+table {
+  width: 100% !important;
   border-collapse: collapse;
 }
 
@@ -243,8 +242,6 @@ td {
   height: 500px;
 }
 
-
-
 html {
   scroll-behavior: smooth;
 }
@@ -277,11 +274,8 @@ form {
   }
 }
 
-
-
 @layer utilities {
   @variants responsive {
-
     /* Hide scrollbar for Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -297,7 +291,31 @@ form {
   }
 }
 
-
 .price {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  background-color: transparent;
+  border-bottom: 2px solid border-white; /* Transparent border by default */
+  -webkit-text-fill-color: #f1f5f9; /* Matches text-slate-50 */
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+  color: #f1f5f9; /* Matches text-slate-50 */
+  outline: none; /* Removes the outline */
+}
+
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:focus {
+  border-bottom: 2px solid #f97316; /* Focus border in primary-orange (#f97316) */
+  outline: none; /* Removes the default focus outline */
 }

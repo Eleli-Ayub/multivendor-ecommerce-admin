@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import Logo from "../assets/logo.jpeg";
 import { useDispatch, useSelector } from "react-redux";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { LoggingUser } from "../Redux/slices/AuthSlice";
 import { AppDispatch } from "../Redux/store";
 import Loader from "./constants/loader";
+import { FaUserCircle } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { TiLockClosed } from "react-icons/ti";
+import { FaUser } from "react-icons/fa";
 
 const LoginForm: React.FC = ({}) => {
   const navigate = useNavigate();
@@ -39,67 +42,60 @@ const LoginForm: React.FC = ({}) => {
 
   return (
     <>
-      <div className="h-screen mx-auto p-10 bg-gray-light w-screen">
+      <div className="h-screen mx-auto p-10 bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-400 light w-screen">
         <div
-          className="lg:w-2/6 h-5/6 w-full bg-white rounded-2xl p-10 shadow-2xl "
+          className="lg:w-2/6 h-5/6 w-full bg-transparent  p-10"
           style={{ margin: "auto" }}
         >
-          <div className="flex items-center justify-center gap-3">
-            <img src={Logo} alt="logo" className="h-24 object-cover " />
-          </div>
-          <p className="text-center">Eduka Admin</p>
+          <div className="flex flex-col justify-self-center text-center">
+            <FaUser className="text-8xl bg-indigo-700 pt-4 rounded-full text-white ml-8" />
 
+            <h1 className="text-center pt-4 text-slate-50 text-3xl font-bold">
+              Admin Login
+            </h1>
+          </div>
           <form
             onSubmit={handleSubmit}
-            className="mx-auto p-4 border rounded-lg shadow-lg mt-4 price"
+            className="mx-auto p-4 bg-transparent  mt-4"
           >
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Email:
-              </label>
+            <div className="mb-8 relative  bg-transparent">
+              <MdEmail className="absolute text-white md:text-4xl text-1xl inset-y-0 md:mt-1 mt-3 ml-2 cursor-pointer" />
               <input
                 type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-primary-orange h-12"
-                placeholder="Enter your Email Address"
+                placeholder="Email"
+                className="w-full px-3 py-2 bg-transparent autofill:shadow-autofill-transparent border-b-2 text-slate-50 placeholder:text-slate-50 focus:ring-0 md:pl-14 pl-8 md:text-3xl text-1xl focus:outline-none focus:border-primary-orange h-12 autofill:bg-transparent autofill:text-slate-50"
               />
             </div>
-            <div className="mb-4">
-              <label
-                htmlFor="password"
-                className="block text-gray-700 text-sm font-bold mb-2 relative"
+            <div className="mb-8 relative  bg-transparent">
+              <TiLockClosed className="absolute text-white md:text-4xl text-1xl inset-y-0 md:mt-1 mt-3 ml-2 cursor-pointer" />
+
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full px-3 py-2 bg-transparent autofill:shadow-autofill-transparent border-b-2 text-slate-50 placeholder:text-slate-50 focus:ring-0 md:pl-14 pl-8 md:text-3xl text-1xl focus:outline-none focus:border-primary-orange h-12 autofill:bg-transparent autofill:text-slate-50"
+                placeholder={`Password `}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute mt-3 right-4 md:text-2xl  text-1xl text-slate-50"
               >
-                Password:
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-primary-orange h-12"
-                  placeholder={`Enter password `}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute top-1/2 right-4"
-                >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </button>
-              </label>
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
 
             <button
               type="submit"
-              className="bg-primary-orange text-white py-2 px-4 rounded-xl hover:bg-secondary-orange transition duration-300 w-full"
+              className="bg-purple-700  shadow-5xl text-white py-2 px-4 rounded-xl hover:bg-purple-500 text-2xl transition duration-300 w-full"
             >
-              Submit
+              Login
             </button>
 
             {/* <p className="text-gray-500 text-center mt-3">
