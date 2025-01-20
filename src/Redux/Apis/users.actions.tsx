@@ -64,7 +64,7 @@ export const RegistrationOfUser = async (formdata: any) => {
 };
 
 export const LogginOfUser = async (formdata: any) => {
-  const response = await axiosService.post("/admin/login", formdata);
+  const response = await axiosService.post("/admin/auth/login", formdata);
   return response;
 };
 
