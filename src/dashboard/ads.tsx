@@ -169,7 +169,7 @@ const AdsDashboard: React.FC = () => {
                     align="center"
                     fontSize="28px"
                   >
-                    Total Ads
+                    Ads overview
                   </Typography>
                   <Stack my={"20px"} direction="row" gap={2} flexWrap="wrap">
                     <Typography fontWeight={700} fontSize="32px" color="green">
