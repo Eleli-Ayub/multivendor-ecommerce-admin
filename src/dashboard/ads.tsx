@@ -9,7 +9,7 @@ import { ApexOptions } from "apexcharts";
 import { Box, Stack, Typography } from "@mui/material";
 import { ArrowCircleUpRounded } from "@mui/icons-material";
 import ReactApexChart from "react-apexcharts";
-import PieChart from "../components/Global/pie";
+import UsersDashboard from "../dashboard/users.tsx";
 
 const AdsDashboard: React.FC = () => {
   const Ads = useSelector((state: any) => state.AllAds.Ads);
@@ -145,14 +145,14 @@ const AdsDashboard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col mx-auto px-3 md:w-full w-screen overflow-auto gap-10">
-      <div className="flex gap-2 flex-wrap lg:flex-nowrap">
-        <Card className="md:w-full w-screen lg:w-1/2 bg-slate-300 ">
+    <div className="flex flex-col mx-auto px-3 md:w-full w-screen bg-slate-700 roundend-lg overflow-auto gap-10">
+      <div className="flex gap-6 flex-wrap lg:flex-nowrap">
+        <Card className="md:w-full w-screen lg:w-1/2 h-[520px] bg-slate-300">
           <Skeleton loading={isLoading} active>
-            <div className="w-full h-full">
+            <div className="w-full h-full p-2">
               <div>
                 <h1 className="text-3xl text-red-500 font-bold">
-                  Welcome Back!
+                  Welcome Back !
                 </h1>
                 <Box
                   p={2}
@@ -196,66 +196,32 @@ const AdsDashboard: React.FC = () => {
             </div>
           </Skeleton>
         </Card>
-
-        <Card className="w-full lg:w-1/2 ">
-          <Skeleton loading={isLoading} active>
-            <Box>
-              <Typography fontSize={"25"} fontWeight={700} color="#11142d">
-                Ads Overview
-              </Typography>
-              <Box mt="20px" display={"flex"} flexWrap="wrap" gap={4}>
-                <PieChart
-                  title="Approved Ads"
-                  value={approvedAdsCount}
-                  series={[percentageApprovedAds, 100 - percentageApprovedAds]}
-                  colors={["#475be8", "#e4e8ef"]}
-                />
-
-                <PieChart
-                  title="Pending Ads"
-                  value={pendingAdsCount}
-                  series={[percentagePendingAds, 100 - percentagePendingAds]}
-                  colors={["#475be8", "#e4e8ef"]}
-                />
-                <PieChart
-                  title="Declined Ads"
-                  value={closedAdsCount}
-                  series={[percentageClosedAds, 100 - percentageClosedAds]}
-                  colors={["#276be8", "#e7e6ef"]}
-                />
-                <PieChart
-                  title="Active Ads"
-                  value={activeAdsCount}
-                  series={[percentageActiveAds, 100 - percentageActiveAds]}
-                  colors={["#475be8", "#e4e8ef"]}
-                />
-              </Box>
-            </Box>
-          </Skeleton>
-        </Card>
+        <UsersDashboard />
       </div>
 
-      <div className="flex gap-2 flex-wrap lg:flex-nowrap">
-        <Card className="w-full lg:w-1/2 h-[300px] overflow-y-auto no-scrollbar">
-          <h1 className="capitalize font-semibold text-center">Recent ads</h1>
+      <div className="flex gap-6 flex-wrap lg:flex-nowrap">
+        <Card className="bg-slate-300 w-full lg:w-1/2 h-[500px] overflow-y-auto scrollbar">
+          <h1 className="text-2xl mb-2 mt-2 text-green-700 capitalize font-semibold text-center">
+            Recent ads
+          </h1>
           <Skeleton loading={isLoading} active>
             <AdsTable Ads={Ads.slice(0, 3)} />
           </Skeleton>
         </Card>
-        <Card className="w-full lg:w-1/2 h-[300px] overflow-y-auto no-scrollbar ">
-          <h1 className="capitalize font-semibold text-center">
+        <Card className="w-full lg:w-1/2 h-[500px] overflow-y-auto bg-slate-300 scrollbar ">
+          <h1 className="capitalize font-semibold text-2xl mb-2 text-green-700 text-center">
             Recent Premium Ads
           </h1>
           <Skeleton loading={isLoading} active>
-            <div className="w-full flex flex-col gap-2 p-[5px]">
+            <div className="w-full flex flex-col gap-6 p-[2px]">
               {ads.map((ad: any) => (
-                <div className=" bg-white gap-2 w-full h-[100px] rounded-[8px] price flex items-center">
+                <div className="bg-slate-200  w-full h-[130px] rounded-[8px] flex items-center gap-8 ">
                   <img
                     src={ad?.mainimage}
                     alt=""
-                    className="w-1/3 h-[98%] object-cover object-top  rounded-[8px]"
+                    className="w-fit h-[100%] object-cover object-back  rounded-[8px] border border-blue-500"
                   />
-                  <p className="text-base font-semibold line-clamp-1">
+                  <p className="md:text-md md:text-center text-sm font-semibold line-clamp-2 mr-2">
                     {ad?.productname}
                   </p>
                 </div>

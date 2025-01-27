@@ -3,7 +3,6 @@ import { AdminSideLinks } from "../../Data/SideLinks";
 // import Image from "../../assets/profile.jpg";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Logo from "../../assets/E-duka (3).png";
 import control from "../../assets/control.png";
 
 const Sidebar = () => {
@@ -32,12 +31,6 @@ const Sidebar = () => {
           onClick={() => setOpen(!open)}
         />
         <div className="flex gap-x-4 items-center ">
-          <img
-            src={Logo}
-            className={`cursor-pointer duration-500 ${
-              open && "rotate-[360deg]"
-            } logo`}
-          />
           <h1
             className={`text-white origin-left font-medium text-xl duration-200 ${
               !open && "scale-0"

@@ -1,191 +1,129 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllUsers } from '../Redux/slices/AuthSlice';
-import { AppDispatch } from '../Redux/store';
-import { Card, Skeleton } from 'antd';
-import { Box, Stack, Typography } from '@mui/material';
-import { ArrowCircleUpRounded } from '@mui/icons-material';
-import ReactApexChart from 'react-apexcharts';
-// import PieChart from '../components/Global/pie';
-import { ApexOptions } from 'apexcharts';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllUsers } from "../Redux/slices/AuthSlice";
+import { AppDispatch } from "../Redux/store";
+import { Card, Skeleton } from "antd";
+import { Box, Stack, Typography } from "@mui/material";
+import { ArrowCircleUpRounded } from "@mui/icons-material";
+
+import { Chart } from "react-google-charts";
 
 const UsersDashboard: React.FC = () => {
-    const users = useSelector((state: any) => state.auth.users);
-    const isLoading = useSelector((state: any) => state.auth.isLoading);
+  const users = useSelector((state: any) => state.auth.users);
+  const isLoading = useSelector((state: any) => state.auth.isLoading);
 
-    const siteUsers = users || [];
-    const totalUsersCount = siteUsers?.length;
-    const approvedUsersCount = siteUsers.filter((user: any) => user.isapproved)?.length;
-    const pendingUsersCount = siteUsers.filter((user: any) => !user.isapproved)?.length;
-    const basicPlanUsersCount = siteUsers.filter(
-        (user: any) => user.packagetype === 'basic'
-    )?.length;
-    const standardPlanUsersCount = siteUsers.filter(
-        (user: any) => user.packagetype === 'standard'
-    )?.length;
-    const premiumPlanUsersCount = siteUsers.filter(
-        (user: any) => user.packagetype === 'premium'
-    )?.length;
+  const siteUsers = users || [];
+  const totalUsersCount = siteUsers?.length;
+  const approvedUsersCount = siteUsers.filter(
+    (user: any) => user.isapproved,
+  )?.length;
+  const pendingUsersCount = siteUsers.filter(
+    (user: any) => !user.isapproved,
+  )?.length;
+  const basicPlanUsersCount = siteUsers.filter(
+    (user: any) => user.packagetype === "basic",
+  )?.length;
+  const standardPlanUsersCount = siteUsers.filter(
+    (user: any) => user.packagetype === "standard",
+  )?.length;
+  const premiumPlanUsersCount = siteUsers.filter(
+    (user: any) => user.packagetype === "premium",
+  )?.length;
 
-    const percentageTotalUsers = Math.round((totalUsersCount / totalUsersCount) * 100);
-    const percentageApprovedUsers = Math.round((approvedUsersCount / totalUsersCount) * 100);
-    const percentagePendingUsers = Math.round((pendingUsersCount / totalUsersCount) * 100);
-    const percentageBasicPlanUsers = Math.round((basicPlanUsersCount / totalUsersCount) * 100);
-    const percentageStandardPlanUsers = Math.round(
-        (standardPlanUsersCount / totalUsersCount) * 100
-    );
-    const percentagePremiumPlanUsers = Math.round((premiumPlanUsersCount / totalUsersCount) * 100);
+  const percentageTotalUsers = Math.round(
+    (totalUsersCount / totalUsersCount) * 100,
+  );
+  const percentageApprovedUsers = Math.round(
+    (approvedUsersCount / totalUsersCount) * 100,
+  );
+  const percentagePendingUsers = Math.round(
+    (pendingUsersCount / totalUsersCount) * 100,
+  );
+  const percentageBasicPlanUsers = Math.round(
+    (basicPlanUsersCount / totalUsersCount) * 100,
+  );
+  const percentageStandardPlanUsers = Math.round(
+    (standardPlanUsersCount / totalUsersCount) * 100,
+  );
+  const percentagePremiumPlanUsers = Math.round(
+    (premiumPlanUsersCount / totalUsersCount) * 100,
+  );
 
-    const [, setFilteredUsers] = useState(siteUsers);
-    const dispatch = useDispatch<AppDispatch>();
+  const [, setFilteredUsers] = useState(siteUsers);
+  const dispatch = useDispatch<AppDispatch>();
 
-    useEffect(() => {
-        dispatch(getAllUsers());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
 
-    useEffect(() => {
-        setFilteredUsers(siteUsers);
-    }, [siteUsers]);
+  useEffect(() => {
+    setFilteredUsers(siteUsers);
+  }, [siteUsers]);
 
-    const TotalUsersSeries = [
-        {
-            data: [
-                percentageTotalUsers,
-                percentageApprovedUsers,
-                percentagePendingUsers,
-                percentageBasicPlanUsers,
-                percentageStandardPlanUsers,
-                percentagePremiumPlanUsers,
-            ],
-        },
-    ];
+  const data = [
+    ["task", "Users Overview"],
+    ["approved", percentageApprovedUsers],
+    ["pending", percentagePendingUsers],
+    ["basic plan", 15],
+    ["standard plan", 20],
+    ["premium plan", 10],
+  ];
+  const options = {
+    legend: {
+      position: "bottom",
+      alignment: "center",
+    },
+    backgroundColor: "#e2e8f0",
+    chartArea: {
+      backgroundColor: "93A3B2",
+    },
+    colors: [
+      "#FF5733",
+      "#FF8D1A",
+      "#FFD700",
+      "#34B7F1",
+      "#9B59B6",
+      "#2ECC71",
+      "#E74C3C",
+      "#F39C12",
+      "#16A085",
+      "#F1C40F",
+    ],
+  };
 
-    const TotalUsersOptions: ApexOptions = {
-        chart: {
-            type: 'bar',
-            toolbar: {
-                show: false,
-            },
-        },
-        colors: ['#475BE8', '#CFC8FF'],
-        plotOptions: {
-            bar: {
-                borderRadius: 4,
-                horizontal: false,
-                columnWidth: '55%',
-            },
-        },
-        dataLabels: {
-            enabled: false,
-        },
-        grid: {
-            show: false,
-        },
-        stroke: {
-            colors: ['transparent'],
-            width: 4,
-        },
-        xaxis: {
-            categories: [
-                'Total',
-                'Approved',
-                'Pending',
-                'Basic Plan',
-                'Standard Plan',
-                'Premium Plan',
-            ],
-        },
-        yaxis: {
-            title: {
-                text: 'Users Percentage',
-            },
-            max: 100,
-        },
-        fill: {
-            opacity: 1,
-        },
-        legend: {
-            position: 'top',
-            horizontalAlign: 'right',
-        },
-        tooltip: {
-            y: {
-                formatter(val: number) {
-                    return ` ${val}%`;
-                },
-            },
-        },
-    };
+  return (
+    <Card className="bg-slate-300 w-full h-[520px] shadow lg:w-1/2 ">
+      <Skeleton loading={isLoading} active>
+        <h1 className="text-2xl text-center font-bold text-green-800">
+          Users Overview
+        </h1>
+        <Stack my={"20px"} direction="row" gap={2} flexWrap="wrap">
+          <Typography fontWeight={700} fontSize="32px" color="green">
+            {totalUsersCount}
+          </Typography>
+          <Stack direction={"row"} alignItems="center" gap={1}>
+            <ArrowCircleUpRounded
+              sx={{
+                fontSize: 25,
+                color: "green",
+              }}
+            />
+            <Stack></Stack>
+          </Stack>
+        </Stack>
 
-    return (
-        <div className="flex flex-col mx-auto px-3 w-full overflow-auto gap-10  mt-10">
-            <div className="flex gap-2 flex-wrap lg:flex-nowrap">
-                <Card className="w-full lg:w-1/2 flex-wrap lg:flex-nowrap">
-                    <Skeleton loading={isLoading} active>
-                        <div className="w-full">
-                            <div>
-                                <Box
-                                    p={2}
-                                    flex={1}
-                                    id="chart"
-                                    display={'flex'}
-                                    flexDirection="column"
-                                    borderRadius={'15px'}
-                                    bgcolor="#fcfcfc"
-                                >
-                                    <Typography fontWeight={400} color="#11142">
-                                        Total Users
-                                    </Typography>
-                                    <Stack my={'20px'} direction="row" gap={4} flexWrap="wrap">
-                                        <Typography fontWeight={700} fontSize="28px" color="#222">
-                                            {totalUsersCount}
-                                        </Typography>
-                                        <Stack direction={'row'} alignItems="center" gap={1}>
-                                            <ArrowCircleUpRounded
-                                                sx={{
-                                                    fontSize: 25,
-                                                    color: '#4754be8',
-                                                }}
-                                            />
-                                            <Stack></Stack>
-                                        </Stack>
-                                    </Stack>
-                                    <ReactApexChart
-                                        series={TotalUsersSeries}
-                                        type="bar"
-                                        height="200px"
-                                        options={TotalUsersOptions}
-                                    />
-                                </Box>
-                            </div>
-                        </div>
-                    </Skeleton>
-                </Card>
-
-                <Card className="w-full lg:w-1/2  h-[400px] overflow-y-auto no-scrollbar ">
-                    <h1 className="capitalize font-semibold text-center">Recent Premium Ads</h1>
-                    <Skeleton loading={isLoading} active>
-                        <div className="w-full flex flex-col gap-2">
-                            {users?.map((user: any) => (
-                                <div className=" bg-white gap-2 w-full h-[100px] rounded-[8px] price p-[5px] flex items-center">
-                                    <img
-                                        src={user?.userimage}
-                                        alt=""
-                                        className="w-[90px] h-[90px] rounded-full border border-primary-orange object-cover object-top "
-                                    />
-                                    <p className="text-base font-semibold line-clamp-1">
-                                        {user?.firstname} {user?.lastname}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </Skeleton>
-                </Card>
-            </div>
-
-            {/* Include additional sections as needed */}
-        </div>
-    );
+        <Box mt="20px">
+          <Chart
+            chartType="PieChart"
+            data={data}
+            options={options}
+            width="100%"
+            height="340px"
+          />
+        </Box>
+      </Skeleton>
+    </Card>
+  );
 };
 
 export default UsersDashboard;
