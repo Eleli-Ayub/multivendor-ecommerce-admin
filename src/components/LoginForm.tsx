@@ -47,7 +47,7 @@ const LoginForm: React.FC = ({}) => {
           <div className="flex items-center justify-center gap-3">
             <img src={Logo} alt="logo" className="h-24 object-cover " />
           </div>
-          <p className="text-center">Eduka Admin</p>
+          <p className="text-center">Eleli Admin</p>
 
           <form
             onSubmit={handleSubmit}

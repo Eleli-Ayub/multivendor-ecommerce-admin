@@ -49,8 +49,12 @@ const Package: React.FC<AppProps> = ({
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (selectedPackage) {
-            const url = `/packages/update?id='${selectedPackage.package_id}'`;
-            const response = axiosService.post(url, formData);
+            const url = '/packages/update';
+            const payload = {
+                ...formData,
+                package_id: selectedPackage.package_id,
+            };
+            const response = axiosService.post(url, payload);
             console.log(response);
             settoggle(false);
             setselectedPackage(null);

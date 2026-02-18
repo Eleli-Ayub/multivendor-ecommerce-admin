@@ -71,7 +71,7 @@ export const fetchSellersProduct = async (id: any) => {
 export const fetchLoggedUsersProducts = async (id: any) => {
   // Your API call using Axios
   const response = await axiosService.get(
-    `products/getproducts/singleuserproduct?id=${id}`
+    `/products/getproducts/singleuserproduct?id=${id}`
   );
   return response;
 };
@@ -97,7 +97,7 @@ export const RejectProduct = async (id: string): Promise<any> => {
 
 export const ActivateProduct = async (id: string): Promise<any> => {
   try {
-    const response = await axiosService.post(`/products/activate?id='${id}'`);
+    const response = await axiosService.post(`/products/activate?id=${id}`);
     return response;
   } catch (error: any) {
     console.error(error);
@@ -106,7 +106,7 @@ export const ActivateProduct = async (id: string): Promise<any> => {
 };
 export const DeactivateProduct = async (id: string): Promise<any> => {
   try {
-    const response = await axiosService.post(`/products/deactivate?id='${id}'`);
+    const response = await axiosService.post(`/products/deactivate?id=${id}`);
     return response;
   } catch (error: any) {
     console.error(error);
@@ -117,7 +117,7 @@ export const DeactivateProduct = async (id: string): Promise<any> => {
 export const DeleteProduct = async (id: string): Promise<any> => {
   try {
     const response = await axiosService.post(
-      `/products/deleteproduct?id='${id}'`
+      `/products/deleteproduct?id=${id}`
     );
     return response;
   } catch (error: any) {
@@ -128,7 +128,7 @@ export const DeleteProduct = async (id: string): Promise<any> => {
 
 export const RestoreProduct = async (id: string): Promise<any> => {
   try {
-    const response = await axiosService.post(`/products/restore?id='${id}'`);
+    const response = await axiosService.post(`/products/restore?id=${id}`);
     return response;
   } catch (error: any) {
     console.error(error);
@@ -139,7 +139,7 @@ export const RestoreProduct = async (id: string): Promise<any> => {
 export const UpdateProduct = async (id: string, payload: any): Promise<any> => {
   try {
     const response = await axiosService.post(
-      `/products/updateproduct?id='${id}'`,
+      `/products/updateproduct?id=${id}`,
       payload
     );
     return response;
@@ -182,14 +182,14 @@ export const fetchMainAds = async () => {
 export const fetchSingleMainAd = async (id: any) => {
   // Your API call using Axios
   const response = await axiosService.get(
-    `/mainads/getsinglemainad?id='${id}'`
+    `/mainads/getsinglemainad?id=${id}`
   );
   return response;
 };
 
 export const ActivateMainAd = async (id: string): Promise<any> => {
   try {
-    const response = await axiosService.post(`/mainads/activate?id='${id}'`);
+    const response = await axiosService.post(`/mainads/activate?id=${id}`);
     return response;
   } catch (error: any) {
     console.error(error);
@@ -198,7 +198,7 @@ export const ActivateMainAd = async (id: string): Promise<any> => {
 };
 export const DeactivateMainad = async (id: string): Promise<any> => {
   try {
-    const response = await axiosService.post(`/mainads/deactivate?id='${id}'`);
+    const response = await axiosService.post(`/mainads/deactivate?id=${id}`);
     return response;
   } catch (error: any) {
     console.error(error);
@@ -208,7 +208,7 @@ export const DeactivateMainad = async (id: string): Promise<any> => {
 
 export const Deletemainad = async (id: string): Promise<any> => {
   try {
-    const response = await axiosService.post(`/mainads/delete?id='${id}'`);
+    const response = await axiosService.post(`/mainads/delete?id=${id}`);
     return response;
   } catch (error: any) {
     console.error(error);
@@ -218,7 +218,7 @@ export const Deletemainad = async (id: string): Promise<any> => {
 
 export const RestoreMainAd = async (id: string): Promise<any> => {
   try {
-    const response = await axiosService.post(`/mainads/restore?id='${id}'`);
+    const response = await axiosService.post(`/mainads/restore?id=${id}`);
     return response;
   } catch (error: any) {
     console.error(error);

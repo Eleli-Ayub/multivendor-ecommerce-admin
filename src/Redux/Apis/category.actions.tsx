@@ -40,9 +40,9 @@ export const EditSubCategory = async (payload: any): Promise<any> => {
     }
 };
 
-export const deleteCategory = async (CategoryName: any): Promise<any> => {
+export const deleteCategory = async (CategoryId: any): Promise<any> => {
     try {
-        const response = await axiosService.post(`/categories/delete/${CategoryName}`);
+        const response = await axiosService.post(`/categories/delete/${CategoryId}`);
         return response;
     } catch (error: any) {
         console.error(error);
@@ -50,9 +50,9 @@ export const deleteCategory = async (CategoryName: any): Promise<any> => {
     }
 };
 
-export const deleteSubCategory = async (SubCategoryName: any): Promise<any> => {
+export const deleteSubCategory = async (SubCategoryId: any): Promise<any> => {
     try {
-        const response = await axiosService.post(`/subcategories/delete/${SubCategoryName}`);
+        const response = await axiosService.post(`/subcategories/delete/${SubCategoryId}`);
         return response;
     } catch (error: any) {
         console.error(error);

@@ -19,10 +19,10 @@ const ListSubcategories: React.FC<AppProps> = ({
     const [subcategoryName, setSubcategoryName] = useState();
     const dispatch = useDispatch();
 
-    const deleteThisSubCategory = async (subcategoryName: string) => {
+    const deleteThisSubCategory = async (subcategoryId: string, subcategoryName: string) => {
         try {
             dispatch(setLoader(true));
-            await deleteSubCategory(subcategoryName);
+            await deleteSubCategory(subcategoryId);
             dispatch(setLoader(false));
             toast.success(` "${subcategoryName}" deleted successfully`);
         } catch (error) {
@@ -59,7 +59,10 @@ const ListSubcategories: React.FC<AppProps> = ({
                         <Delete
                             className="text-red-600"
                             onClick={() => {
-                                deleteThisSubCategory(record?.subcategoryname);
+                                deleteThisSubCategory(
+                                    record?.subcategoryid,
+                                    record?.subcategoryname
+                                );
                             }}
                         />
                     </div>

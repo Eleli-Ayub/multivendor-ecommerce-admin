@@ -1,10 +1,7 @@
 import axios from "axios";
 
 export const axiosService = axios.create({
-  baseURL: "https://ecommerce.eleliafrika.cloud",
-  // baseURL: 'http://localhost:8000',
-  // baseURL: 'http://192.168.0.112:8000',
-  // baseURL: 'http://137.184.189.199:8000',
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000",
 });
 
 // Add a response interceptor to handle errors

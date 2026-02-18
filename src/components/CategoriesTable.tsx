@@ -25,10 +25,10 @@ const CategoryTable: React.FC<AdFormProps> = ({ categories, subcategoryCounts, g
 
     const dispatch = useDispatch();
 
-    const deleteThisCategory = async (categoryName: string) => {
+    const deleteThisCategory = async (categoryId: string, categoryName: string) => {
         try {
             dispatch(setLoader(true));
-            await deleteCategory(categoryName);
+            await deleteCategory(categoryId);
             dispatch(setLoader(false));
             toast.success(`Category "${categoryName}" deleted successfully`);
             getcategories();
@@ -78,7 +78,7 @@ const CategoryTable: React.FC<AdFormProps> = ({ categories, subcategoryCounts, g
                         <Delete
                             className="text-red-600"
                             onClick={() => {
-                                deleteThisCategory(record.categoryname);
+                                deleteThisCategory(record.categoryid, record.categoryname);
                             }}
                         />
                     </div>

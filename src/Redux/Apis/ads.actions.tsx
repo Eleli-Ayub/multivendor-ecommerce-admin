@@ -52,7 +52,7 @@ export const RejectProduct = async (id: string): Promise<any> => {
 
 export const ActivateProduct = async (id: string): Promise<any> => {
     try {
-        const response = await axiosService.post(`/products/activate?id='${id}'`);
+        const response = await axiosService.post(`/products/activate?id=${id}`);
         return response;
     } catch (error: any) {
         console.error(error);
@@ -61,7 +61,7 @@ export const ActivateProduct = async (id: string): Promise<any> => {
 };
 export const DeactivateProduct = async (id: string): Promise<any> => {
     try {
-        const response = await axiosService.post(`/products/deactivate?id='${id}'`);
+        const response = await axiosService.post(`/products/deactivate?id=${id}`);
         return response;
     } catch (error: any) {
         console.error(error);
@@ -71,7 +71,7 @@ export const DeactivateProduct = async (id: string): Promise<any> => {
 
 export const DeleteProduct = async (id: string): Promise<any> => {
     try {
-        const response = await axiosService.post(`/products/deleteproduct?id='${id}'`);
+        const response = await axiosService.post(`/products/deleteproduct?id=${id}`);
         return response;
     } catch (error: any) {
         console.error(error);
@@ -80,7 +80,7 @@ export const DeleteProduct = async (id: string): Promise<any> => {
 };
 export const RestoreProduct = async (id: string): Promise<any> => {
     try {
-        const response = await axiosService.post(`/products/restore?id='${id}'`);
+        const response = await axiosService.post(`/products/restore?id=${id}`);
         return response;
     } catch (error: any) {
         console.error(error);
