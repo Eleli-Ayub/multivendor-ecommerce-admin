@@ -2,7 +2,7 @@ name: deploy ecommerceweb
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     
 env:
   IMAGE_NAME: ${{ secrets.DOCR_REGISTRY }}/ecommerce_admin
