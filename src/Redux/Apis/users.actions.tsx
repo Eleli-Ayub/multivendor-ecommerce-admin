@@ -1,7 +1,7 @@
 import { axiosService } from "../helpers/axios";
 
 export interface LoginPayload {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -52,8 +52,13 @@ export const RegistrationOfUser = async (formdata: any) => {
 export const LogginOfUser = async (
   formdata: LoginPayload
 ): Promise<LoginResponse> => {
-  const response = await axiosService.post("/admin/signin", formdata);
-  return response.data;
+  const response = await axiosService.post("/auth/admin/login", formdata);
+  // New API returns data.token nested inside data
+  const raw = response.data;
+  return {
+    message: raw.message || "Login successful",
+    token: raw.data?.token || raw.token || "",
+  };
 };
 
 export const getUsers = async (): Promise<FetchUsersResponse> => {
