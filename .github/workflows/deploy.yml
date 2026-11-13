@@ -1,53 +1,76 @@
-name: deploy ecommerce_admin
+name: Deploy admin to CloudFront
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
-env:
-  IMAGE_NAME: ${{ secrets.DOCR_REGISTRY }}/ecommerce_admin
+permissions:
+  id-token: write # GitHub OIDC -> AWS IAM role, no stored AWS keys
+  contents: read
 
+concurrency:
+  group: deploy-admin
+  cancel-in-progress: false
+
+# Repository settings -> Secrets and variables -> Actions:
+#   Variables: AWS_REGION, AWS_DEPLOY_ROLE_ARN, S3_BUCKET, CLOUDFRONT_DISTRIBUTION_ID
+#   Secret:    MAIN_ENV_FILE (the Vite .env, e.g. VITE_API_URL=https://<backend-ip>)
 jobs:
-  create-deployment:
-    name: build and push image
+  deploy:
+    name: Build and deploy
     runs-on: ubuntu-latest
+    env:
+      S3_BUCKET: ${{ vars.S3_BUCKET }}
+      CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
+          node-version: 20
+          cache: npm
 
-      - name: Resolve image tag
-        id: image_meta
-        run: |
-          TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
-          if [ -z "$TAG" ]; then
-            TAG="main-${GITHUB_SHA::7}"
-          fi
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-
-      - name: Load env file from secret
-        run: |
-          printf "%s" "${{ secrets.MAIN_ENV_FILE }}" > .env
-          sed -i 's/\r$//' .env
-
-      - name: Login to container registry
-        uses: docker/login-action@v4
-        with:
-          registry: registry.digitalocean.com
-          username: ${{ secrets.DOCR_TOKEN }}
-          password: ${{ secrets.DOCR_TOKEN }}
-
-      - name: Build image
+      - name: Write .env from secret
         env:
-          DOCKER_BUILDKIT: 1
+          MAIN_ENV_FILE: ${{ secrets.MAIN_ENV_FILE }}
         run: |
-          docker build \
-            --tag "${IMAGE_NAME}:${{ steps.image_meta.outputs.tag }}" \
-            .
+          printf '%s\n' "$MAIN_ENV_FILE" | sed 's/\r$//' > .env
+          grep -q '^VITE_API_URL=' .env || { echo "::error::MAIN_ENV_FILE must define VITE_API_URL"; exit 1; }
 
-      - name: Push image
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Upload to S3
         run: |
-          docker push "${IMAGE_NAME}:${{ steps.image_meta.outputs.tag }}"
+          # Vite puts content-hashed files in dist/assets: cache them for a year.
+          if [ -d dist/assets ]; then
+            aws s3 sync dist/assets "s3://$S3_BUCKET/assets" \
+              --cache-control "public,max-age=31536000,immutable"
+          fi
+          # Everything else (index.html, public/ files) must always be revalidated.
+          aws s3 sync dist "s3://$S3_BUCKET" --exclude "assets/*" \
+            --cache-control "no-cache"
+          # Remove files that are no longer part of the build.
+          aws s3 sync dist "s3://$S3_BUCKET" --delete
+
+      - name: Invalidate CloudFront cache
+        run: |
+          ID=$(aws cloudfront create-invalidation \
+            --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
+            --paths "/*" --query 'Invalidation.Id' --output text)
+          aws cloudfront wait invalidation-completed \
+            --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --id "$ID"
+          echo "Deployed. Invalidation $ID complete." >> "$GITHUB_STEP_SUMMARY"
