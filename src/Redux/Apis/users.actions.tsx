@@ -45,46 +45,46 @@ export interface FetchUsersResponse {
 }
 
 export const RegistrationOfUser = async (formdata: any) => {
-  const response = await axiosService.post("/auth/signup", formdata);
+  const response = await axiosService.post("/admin/auth/signup", formdata);
   return response.data;
 };
 
 export const LogginOfUser = async (
   formdata: LoginPayload
 ): Promise<LoginResponse> => {
-  const response = await axiosService.post("/auth/signin", formdata);
+  const response = await axiosService.post("/admin/auth/signin", formdata);
   return response.data;
 };
 
 export const getUsers = async (): Promise<FetchUsersResponse> => {
-  const response = await axiosService.get("/panel/fetchusers");
+  const response = await axiosService.get("/admin/panel/fetchusers");
   return response.data;
 };
 
 export const GetUserById = async (id: string) => {
-  const response = await axiosService.get(`/user/auth/fetchuser?id=${id}`);
+  const response = await axiosService.get(`/users/fetchuser?id=${id}`);
   return response.data;
 };
 
 export const UpdateOfUser = async (userid: string, formdata: any) => {
   const response = await axiosService.post(
-    `/user/auth/updateuser?userid=${userid}`,
+    `/users/updateuser?userid=${userid}`,
     formdata
   );
   return response.data;
 };
 
 export const loggedInUser = async () => {
-  const response = await axiosService.get("/user/auth/getuser");
+  const response = await axiosService.get("/admin/panel/fetchusers");
   return response.data;
 };
 
 export const ApproveUser = async (id: string) => {
-  const response = await axiosService.post(`/panel/approveuser?id=${id}`);
+  const response = await axiosService.put(`/admin/panel/approveuser/${id}`);
   return response.data;
 };
 
 export const RevokeUser = async (id: string) => {
-  const response = await axiosService.post(`/panel/revokeuser?id=${id}`);
+  const response = await axiosService.put(`/admin/panel/revokeuser/${id}`);
   return response.data;
 };

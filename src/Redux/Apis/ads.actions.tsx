@@ -33,7 +33,7 @@ export const getSingleProduct = async (id: any): Promise<any> => {
 };
 export const ApproveProduct = async (id: string): Promise<any> => {
     try {
-        const response = await axiosService.post(`admin/approveproduct?id=${id}`);
+        const response = await axiosService.post(`/admin/panel/approveproduct?id=${id}`);
         return response;
     } catch (error: any) {
         console.error(error);

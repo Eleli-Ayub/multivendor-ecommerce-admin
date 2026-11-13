@@ -21,82 +21,82 @@ adminApiClient.interceptors.request.use(
 
 // ===================== AUTH =====================
 export const adminAuthAPI = {
-    login: (data: { email: string; password: string }) =>
-        adminApiClient.post('/auth/admin/login', data),
+    login: (data: { username: string; password: string }) =>
+        adminApiClient.post('/admin/auth/signin', data),
 };
 
 // ===================== DASHBOARD =====================
 export const dashboardAPI = {
-    getStats: () => adminApiClient.get('/admin/dashboard'),
-    refreshStats: () => adminApiClient.post('/admin/stats/refresh'),
+    getStats: () => adminApiClient.get('/admin/panel/dashboard'),
+    refreshStats: () => adminApiClient.post('/admin/panel/stats/refresh'),
 };
 
 // ===================== USERS =====================
 export const adminUsersAPI = {
     getAll: (page = 1, limit = 20) =>
-        adminApiClient.get(`/admin/users?page=${page}&limit=${limit}`),
-    deactivate: (id: string) => adminApiClient.post(`/admin/users/${id}/deactivate`),
+        adminApiClient.get(`/admin/panel/users?page=${page}&limit=${limit}`),
+    deactivate: (id: string) => adminApiClient.post(`/admin/panel/users/${id}/deactivate`),
 };
 
 // ===================== VENDORS =====================
 export const adminVendorsAPI = {
     getAll: (page = 1, limit = 20) =>
-        adminApiClient.get(`/admin/vendors?page=${page}&limit=${limit}`),
-    getPending: () => adminApiClient.get('/admin/vendors/pending'),
-    approve: (id: string) => adminApiClient.post(`/admin/vendors/${id}/approve`),
+        adminApiClient.get(`/admin/panel/vendors?page=${page}&limit=${limit}`),
+    getPending: () => adminApiClient.get('/admin/panel/vendors/pending'),
+    approve: (id: string) => adminApiClient.post(`/admin/panel/vendors/${id}/approve`),
     reject: (id: string, reason: string) =>
-        adminApiClient.post(`/admin/vendors/${id}/reject`, { reason }),
+        adminApiClient.post(`/admin/panel/vendors/${id}/reject`, { reason }),
     deactivate: (id: string, reason: string) =>
-        adminApiClient.post(`/admin/vendors/${id}/deactivate`, { reason }),
+        adminApiClient.post(`/admin/panel/vendors/${id}/deactivate`, { reason }),
 };
 
 // ===================== PRODUCTS =====================
 export const adminProductsAPI = {
     getAll: (page = 1, limit = 20) =>
-        adminApiClient.get(`/admin/products?page=${page}&limit=${limit}`),
-    highlight: (id: string) => adminApiClient.post(`/admin/products/${id}/highlight`),
-    removeHighlight: (id: string) => adminApiClient.post(`/admin/products/${id}/remove-highlight`),
-    promote: (id: string) => adminApiClient.post(`/admin/products/${id}/promote`),
-    removePromote: (id: string) => adminApiClient.post(`/admin/products/${id}/remove-promote`),
+        adminApiClient.get(`/admin/panel/products?page=${page}&limit=${limit}`),
+    highlight: (id: string) => adminApiClient.post(`/admin/panel/products/${id}/highlight`),
+    removeHighlight: (id: string) => adminApiClient.post(`/admin/panel/products/${id}/remove-highlight`),
+    promote: (id: string) => adminApiClient.post(`/admin/panel/products/${id}/promote`),
+    removePromote: (id: string) => adminApiClient.post(`/admin/panel/products/${id}/remove-promote`),
 };
 
 // ===================== ORDERS =====================
 export const adminOrdersAPI = {
     getAll: (page = 1, limit = 20) =>
-        adminApiClient.get(`/admin/orders?page=${page}&limit=${limit}`),
+        adminApiClient.get(`/admin/panel/orders?page=${page}&limit=${limit}`),
 };
 
 // ===================== INVOICES =====================
 export const adminInvoicesAPI = {
-    getAll: () => adminApiClient.get('/admin/invoices'),
+    getAll: () => adminApiClient.get('/admin/panel/invoices'),
 };
 
 // ===================== REVIEWS =====================
 export const adminReviewsAPI = {
-    getAll: () => adminApiClient.get('/admin/reviews'),
-    hide: (id: string) => adminApiClient.post(`/admin/reviews/${id}/hide`),
-    unhide: (id: string) => adminApiClient.post(`/admin/reviews/${id}/unhide`),
+    getAll: () => adminApiClient.get('/admin/panel/reviews'),
+    hide: (id: string) => adminApiClient.post(`/admin/panel/reviews/${id}/hide`),
+    unhide: (id: string) => adminApiClient.post(`/admin/panel/reviews/${id}/unhide`),
 };
 
 // ===================== PACKAGES =====================
 export const adminPackagesAPI = {
-    getAll: () => adminApiClient.get('/admin/packages'),
-    create: (data: Record<string, unknown>) => adminApiClient.post('/admin/packages', data),
+    getAll: () => adminApiClient.get('/admin/panel/packages'),
+    create: (data: Record<string, unknown>) => adminApiClient.post('/admin/panel/packages', data),
     update: (id: string, data: Record<string, unknown>) =>
-        adminApiClient.put(`/admin/packages/${id}`, data),
+        adminApiClient.put(`/admin/panel/packages/${id}`, data),
 };
 
 // ===================== LOCATIONS =====================
 export const adminLocationsAPI = {
-    getAll: () => adminApiClient.get('/admin/locations'),
+    getAll: () => adminApiClient.get('/admin/panel/locations'),
     create: (regionName: string) =>
-        adminApiClient.post('/admin/locations', { region_name: regionName }),
-    delete: (id: string) => adminApiClient.delete(`/admin/locations/${id}`),
+        adminApiClient.post('/admin/panel/locations', { region_name: regionName }),
+    delete: (id: string) => adminApiClient.delete(`/admin/panel/locations/${id}`),
 };
 
 // ===================== CHAT =====================
 export const adminChatAPI = {
-    getAll: () => adminApiClient.get('/admin/chat'),
+    getAll: () => adminApiClient.get('/admin/panel/chat'),
     getMessages: (convId: string) =>
-        adminApiClient.get(`/chat/conversations/${convId}/messages`),
+        adminApiClient.get(`/admin/panel/chat/${convId}/messages`),
 };

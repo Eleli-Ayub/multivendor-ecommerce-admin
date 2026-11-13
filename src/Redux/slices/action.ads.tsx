@@ -78,7 +78,7 @@ export const fetchLoggedUsersProducts = async (id: any) => {
 
 export const ApproveProduct = async (id: string): Promise<any> => {
   try {
-    const response = await axiosService.post(`admin/approveproduct?id=${id}`);
+    const response = await axiosService.post(`/admin/panel/approveproduct?id=${id}`);
     return response;
   } catch (error: any) {
     console.error(error);
