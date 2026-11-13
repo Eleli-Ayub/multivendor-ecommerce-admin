@@ -9,6 +9,7 @@ import { Favorite, Reviews } from '@mui/icons-material';
 import { Avatar } from 'antd';
 import { Rating } from '@mui/material';
 import { setLoader } from '../Redux/slices/Loaderslice';
+import usePageTitle from '../hooks/usePageTitle';
 
 function toggleIsActive() {}
 
@@ -26,6 +27,7 @@ const ProductInfo = () => {
 
     const dispatch = useDispatch();
     const { id } = useParams();
+    usePageTitle(product?.productname);
 
     const getData = async () => {
         try {

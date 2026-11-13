@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../components/constants/Sidebar";
 import { fetchSingleMainAd } from "../Redux/slices/action.ads";
+import usePageTitle from '../hooks/usePageTitle';
 
 interface MainAd {
   adimage: string;
@@ -13,6 +14,7 @@ interface MainAd {
 const MainAdPage: React.FC = () => {
   const [ad, setAd] = useState<MainAd | undefined>();
   const { id } = useParams();
+  usePageTitle(ad?.adname);
 
   const getAd = async () => {
     try {

@@ -31,6 +31,7 @@ import AdminPackagesPage from '../pages/AdminPackagesPage';
 import AdminLocationsPage from '../pages/AdminLocationsPage';
 import AdminInvoicesPage from '../pages/AdminInvoicesPage';
 import AdminUsersPage from '../pages/AdminUsersPage';
+import RouteTitle from '../components/RouteTitle';
 // import MainAd from '../components/MainAd';
 
 const Index = () => {
@@ -47,6 +48,7 @@ const Index = () => {
 
             <Navbar />
             <div className="id" id="root">
+                <RouteTitle />
                 <Routes>
                     <Route
                         path="/ads"

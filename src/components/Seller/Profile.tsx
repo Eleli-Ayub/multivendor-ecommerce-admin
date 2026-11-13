@@ -9,6 +9,7 @@ import cart from '../../assets/cart2.jpg';
 import Loader from '../constants/loader';
 
 import AdsTable from '../../components/userAdsTable';
+import usePageTitle from '../../hooks/usePageTitle';
 
 const Profile = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -17,6 +18,9 @@ const Profile = () => {
     const { Seller, isLoading } = useSelector((state: any) => state.auth);
     const theSeller = Seller;
     const { id } = useParams();
+    usePageTitle(
+        !isLoading && theSeller ? [theSeller.firstname, theSeller.lastname].filter(Boolean).join(' ') || undefined : undefined,
+    );
 
     // function FetchSellerProducts(id: string | undefined): any {
     //     throw new Error('Function not implemented.');
