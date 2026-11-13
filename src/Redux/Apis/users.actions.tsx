@@ -52,7 +52,11 @@ export const RegistrationOfUser = async (formdata: any) => {
 export const LogginOfUser = async (
   formdata: LoginPayload
 ): Promise<LoginResponse> => {
-  const response = await axiosService.post("/admin/auth/signin", formdata);
+  // The API's AdminLogin expects "username" (matched against email, admin name or cell).
+  const response = await axiosService.post("/admin/auth/signin", {
+    username: formdata.email.trim(),
+    password: formdata.password,
+  });
   return response.data;
 };
 
